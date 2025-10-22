@@ -2,18 +2,13 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using MyBlazor1;
 
+using TG.Blazor.IndexedDB;
+
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-
-await builder.Build().RunAsync();
-
-//
-using TG.Blazor.IndexedDB;
-
-var builder = WebAssemblyHostBuilder.CreateDefault(args);
 
 builder.Services.AddIndexedDB(dbStore =>
 {
@@ -24,7 +19,7 @@ builder.Services.AddIndexedDB(dbStore =>
     {
         Name = "JournalEntries",
         PrimaryKey = new IndexSpec { Name = "Id", KeyPath = "Id", Auto = false },
-        Indexes = new[]
+        Indexes = new List<IndexSpec>
         {
             new IndexSpec { Name = "Date", KeyPath = "Date", Auto = false },
             new IndexSpec { Name = "Description", KeyPath = "Description", Auto = false }
@@ -35,7 +30,7 @@ builder.Services.AddIndexedDB(dbStore =>
     {
         Name = "JournalLines",
         PrimaryKey = new IndexSpec { Name = "Id", KeyPath = "Id", Auto = false },
-        Indexes = new[]
+        Indexes = new List<IndexSpec>
         {
             new IndexSpec { Name = "JournalId", KeyPath = "JournalId", Auto = false },
             new IndexSpec { Name = "AccountId", KeyPath = "AccountId", Auto = false },
@@ -48,10 +43,19 @@ builder.Services.AddIndexedDB(dbStore =>
     {
         Name = "Accounts",
         PrimaryKey = new IndexSpec { Name = "Id", KeyPath = "Id", Auto = false },
-        Indexes = new[]
+        Indexes = new List<IndexSpec>
         {
             new IndexSpec { Name = "Name", KeyPath = "Name", Auto = false },
             new IndexSpec { Name = "Type", KeyPath = "Type", Auto = false }
         }
     });
 });
+
+
+await builder.Build().RunAsync();
+
+//
+
+
+// var builder = WebAssemblyHostBuilder.CreateDefault(args);
+
