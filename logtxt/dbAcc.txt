@@ -1,0 +1,115 @@
+Membangun **database design untuk aplikasi akuntansi** berarti kamu harus memodelkan aliran keuangan ke dalam struktur tabel-tabel yang bisa mencatat, mengelompokkan, dan melaporkan transaksi secara benar.
+
+Mari kita buat desain database **dasar**, yang bisa kamu kembangkan sesuai kebutuhan.
+
+---
+
+## 🧱 **1. Entity / Table Utama**
+
+Berikut tabel-tabel utama yang umum dipakai dalam aplikasi akuntansi:
+
+| Tabel             | Fungsi                                             |
+| ----------------- | -------------------------------------------------- |
+| `accounts`        | Daftar akun (Kas, Pendapatan, Beban, Piutang, dll) |
+| `journal_entries` | Header jurnal (tanggal, deskripsi)                 |
+| `journal_lines`   | Detail debit/kredit tiap jurnal                    |
+| `transactions`    | Catatan transaksi seperti invoice, bill, expense   |
+| `partners`        | Data pelanggan & vendor                            |
+| `products`        | Barang/jasa untuk dijual/dibeli                    |
+| `invoices`        | Dokumen penjualan                                  |
+| `bills`           | Dokumen pembelian                                  |
+| `payments`        | Pembayaran masuk/keluar                            |
+| `users`           | Pengguna sistem                                    |
+| `settings`        | Konfigurasi (periode aktif, penguncian, dsb)       |
+
+---
+
+## 🗂️ **2. Struktur Tabel Inti (Simplified)**
+
+### 🔹 `accounts`
+
+| Field     | Tipe       | Keterangan                                     |
+| --------- | ---------- | ---------------------------------------------- |
+| id        | UUID / Int | Primary Key                                    |
+| name      | Text       | Nama akun (misal: Kas, Pendapatan)             |
+| code      | Text       | Kode akun (101, 402, dst)                      |
+| type      | Enum       | asset / liability / equity / revenue / expense |
+| is_active | Boolean    | Aktif atau tidak                               |
+
+---
+
+### 🔹 `journal_entries`
+
+| Field       | Tipe       | Keterangan        |
+| ----------- | ---------- | ----------------- |
+| id          | UUID / Int | Primary Key       |
+| date        | Date       | Tanggal transaksi |
+| description | Text       | Keterangan umum   |
+| created_by  | FK → users | Siapa yang input  |
+
+---
+
+### 🔹 `journal_lines`
+
+| Field       | Tipe                 | Keterangan                  |
+| ----------- | -------------------- | --------------------------- |
+| id          | UUID / Int           | Primary Key                 |
+| journal_id  | FK → journal_entries | ID jurnal induk             |
+| account_id  | FK → accounts        | Akun terkait                |
+| debit       | Decimal              | Nilai debit (0 jika bukan)  |
+| credit      | Decimal              | Nilai kredit (0 jika bukan) |
+| description | Text                 | Keterangan baris (optional) |
+
+📌 **Setiap transaksi keuangan diinput sebagai jurnal dengan 2+ baris (Dr/Cr)**
+
+---
+
+## 🔄 Contoh Flow Transaksi Penjualan
+
+1. **Customer beli produk senilai Rp10.000.000**
+2. Sistem mencatat invoice
+3. Sistem buat journal otomatis seperti ini:
+
+| journal_entries                |
+| ------------------------------ |
+| id: JE-0001                    |
+| date: 2025-10-22               |
+| description: Penjualan ke PT A |
+
+| journal_lines                                         |
+| ----------------------------------------------------- |
+| journal_id: JE-0001                                   |
+| account_id: Piutang (asset)   → debit: 10.000.000     |
+| account_id: Pendapatan (revenue) → credit: 10.000.000 |
+
+---
+
+## 🧮 Contoh Skema Relasi Diagram (ERD Sederhana)
+
+```
+users
+  ↑
+journal_entries ← journal_lines → accounts
+
+invoices → journal_entries
+bills → journal_entries
+payments → journal_entries
+
+partners ← invoices / bills
+products ← invoices / bills
+```
+
+---
+
+## ✅ Kesimpulan
+
+| Komponen                            | Tujuan                                           |
+| ----------------------------------- | ------------------------------------------------ |
+| `accounts`                          | Master akun, wajib ada di semua sistem akuntansi |
+| `journal_entries` & `journal_lines` | Jantung dari sistem pencatatan keuangan          |
+| `invoices`, `bills`, `payments`     | Modul transaksi yang otomatis hasilkan jurnal    |
+| Relasi antar tabel                  | Penting untuk laporan P&L, Neraca, Cashflow      |
+
+---
+
+Kalau kamu mau, aku bisa bantu buatkan **ERD visual** (gambar) atau bantu kamu mulai struktur SQL-nya secara nyata. Mau lanjut ke sana?

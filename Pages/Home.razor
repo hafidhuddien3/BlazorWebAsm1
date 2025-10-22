@@ -1,0 +1,21 @@
+﻿@page "/"
+
+@inject IndexedDBManager IndexedDbManager
+
+<PageTitle>Home</PageTitle>
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+await IndexedDbManager.AddRecord(new StoreRecord<JournalEntry>
+{
+    Storename = "JournalEntries",
+    Data = new JournalEntry
+    {
+        Id = Guid.NewGuid().ToString(),
+        Date = DateTime.Today,
+        Description = "Initial capital"
+    }
+});
+
