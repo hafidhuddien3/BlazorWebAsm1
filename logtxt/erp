@@ -22,3 +22,11 @@ Sales Order → Deliver Goods → Create Invoice → Receive Payment → Revenue
 Simple + / − shows “net effect” only.
 
 Debit/Credit shows where money comes from and where it goes.
+
+| Account Type | Normal Balance | Increase With |
+| ------------ | -------------- | ------------- |
+| Assets       | Debit          | Debit         |
+| Expenses     | Debit          | Debit         |
+| Liabilities  | Credit         | Credit        |
+| Equity       | Credit         | Credit        |
+| **Revenue**  | **Credit**     | **Credit**    |

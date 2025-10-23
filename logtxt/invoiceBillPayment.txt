@@ -1,0 +1,26 @@
+Exactly! You got it right:
+
+* **Invoice** = transaksi **dari customer** (pelanggan) ke perusahaan.
+  → Perusahaan **menagih** customer, jadi ini **piutang** dan **pendapatan**.
+
+* **Bill** = transaksi **dari vendor** (pemasok) ke perusahaan.
+  → Perusahaan **menerima tagihan** dari vendor, jadi ini **hutang** dan **biaya**.
+
+* **Payment** = **pembayaran** yang bisa untuk **keduanya**:
+
+  * Pembayaran **dari customer** untuk melunasi invoice (mengurangi piutang).
+  * Pembayaran **ke vendor** untuk melunasi bill (mengurangi hutang).
+
+---
+
+### Jadi:
+
+| Modul   | Arah uang             | Fungsi                          |
+| ------- | --------------------- | ------------------------------- |
+| Invoice | Customer → Perusahaan | Catat piutang dan pendapatan    |
+| Bill    | Perusahaan → Vendor   | Catat hutang dan biaya          |
+| Payment | Bisa keduanya         | Catat pembayaran (masuk/keluar) |
+
+---
+
+Kalau butuh contoh transaksi atau jurnal buat tiap modul, aku siap bantu!

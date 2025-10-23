@@ -1,0 +1,63 @@
+Oke! Berikut contoh desain **3 tabel dasar** untuk modul **Invoice**, **Bill**, dan **Payment** dalam database, yang bisa kamu gunakan di ERP sederhana.
+
+---
+
+## 1. Tabel **Invoices**
+
+Mencatat faktur penjualan ke customer.
+
+| Kolom       | Tipe Data     | Keterangan                                   |
+| ----------- | ------------- | -------------------------------------------- |
+| InvoiceId   | INT (PK)      | Primary Key, unik untuk invoice              |
+| CustomerId  | INT (FK)      | ID pelanggan (relasi ke tabel customer)      |
+| InvoiceDate | DATETIME      | Tanggal invoice dibuat                       |
+| DueDate     | DATETIME      | Tanggal jatuh tempo pembayaran               |
+| TotalAmount | DECIMAL(18,2) | Total nilai invoice                          |
+| Status      | VARCHAR(50)   | Status invoice (e.g. Pending, Paid, Overdue) |
+| CreatedAt   | DATETIME      | Waktu pembuatan                              |
+| UpdatedAt   | DATETIME      | Waktu update terakhir                        |
+
+---
+
+## 2. Tabel **Bills**
+
+Mencatat tagihan pembelian dari vendor.
+
+| Kolom       | Tipe Data     | Keterangan                           |
+| ----------- | ------------- | ------------------------------------ |
+| BillId      | INT (PK)      | Primary Key, unik untuk bill         |
+| VendorId    | INT (FK)      | ID vendor (relasi ke tabel vendor)   |
+| BillDate    | DATETIME      | Tanggal tagihan diterima             |
+| DueDate     | DATETIME      | Tanggal jatuh tempo pembayaran       |
+| TotalAmount | DECIMAL(18,2) | Total nilai tagihan                  |
+| Status      | VARCHAR(50)   | Status bill (Pending, Paid, Overdue) |
+| CreatedAt   | DATETIME      | Waktu pembuatan                      |
+| UpdatedAt   | DATETIME      | Waktu update terakhir                |
+
+---
+
+## 3. Tabel **Payments**
+
+Mencatat pembayaran yang dilakukan (baik dari customer atau ke vendor).
+
+| Kolom         | Tipe Data      | Keterangan                                        |
+| ------------- | -------------- | ------------------------------------------------- |
+| PaymentId     | INT (PK)       | Primary Key, unik untuk payment                   |
+| PaymentDate   | DATETIME       | Tanggal pembayaran dilakukan                      |
+| Amount        | DECIMAL(18,2)  | Jumlah uang yang dibayarkan                       |
+| PaymentMethod | VARCHAR(50)    | Metode pembayaran (Cash, Bank, Transfer)          |
+| InvoiceId     | INT (FK, NULL) | Relasi ke invoice (jika pembayaran dari customer) |
+| BillId        | INT (FK, NULL) | Relasi ke bill (jika pembayaran ke vendor)        |
+| CreatedAt     | DATETIME       | Waktu pembuatan                                   |
+| UpdatedAt     | DATETIME       | Waktu update terakhir                             |
+
+---
+
+### Catatan:
+
+* Kolom `InvoiceId` dan `BillId` di tabel **Payments** nullable karena satu pembayaran bisa terkait dengan invoice **atau** bill, tapi tidak keduanya sekaligus.
+* Kamu bisa sesuaikan tipe data dan kolom tambahan sesuai kebutuhan ERP-mu.
+
+---
+
+Kalau mau, aku juga bisa bantu bikin contoh relasi antar tabel atau query SQL-nya!

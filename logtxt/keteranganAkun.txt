@@ -1,0 +1,66 @@
+Tentu! Berikut penjelasan singkat untuk setiap akun yang muncul di jurnal contoh tadi:
+
+---
+
+### 1. **Piutang Usaha (Accounts Receivable)**
+
+* **Jenis akun:** Aset lancar (Current Asset)
+* **Fungsi:** Mencatat jumlah uang yang harus diterima perusahaan dari pelanggan (customer) karena penjualan kredit.
+* **Karakteristik:**
+
+  * Bertambah di sisi debit
+  * Berkurang di sisi kredit (misal saat pembayaran diterima)
+
+---
+
+### 2. **Penjualan (Sales Revenue)**
+
+* **Jenis akun:** Pendapatan (Revenue)
+* **Fungsi:** Mencatat pendapatan dari hasil penjualan barang atau jasa.
+* **Karakteristik:**
+
+  * Bertambah di sisi kredit
+  * Berkurang di sisi debit (jarang terjadi, biasanya saat retur atau koreksi)
+
+---
+
+### 3. **Beban / Persediaan (Expense / Inventory)**
+
+* **Jenis akun:**
+
+  * Jika beban, akun ini masuk dalam beban (expense)
+  * Jika persediaan barang, masuk dalam aset lancar
+* **Fungsi:**
+
+  * **Beban:** Mencatat biaya yang timbul dari pembelian barang/jasa untuk operasional
+  * **Persediaan:** Mencatat nilai barang yang dibeli untuk dijual kembali
+* **Karakteristik:**
+
+  * Beban bertambah di debit, berkurang di kredit
+  * Persediaan bertambah di debit, berkurang di kredit
+
+---
+
+### 4. **Hutang Usaha (Accounts Payable)**
+
+* **Jenis akun:** Kewajiban lancar (Current Liability)
+* **Fungsi:** Mencatat jumlah uang yang harus dibayar perusahaan ke vendor atau pemasok atas pembelian kredit.
+* **Karakteristik:**
+
+  * Bertambah di kredit
+  * Berkurang di debit (saat pembayaran hutang)
+
+---
+
+### 5. **Kas / Bank (Cash / Bank Account)**
+
+* **Jenis akun:** Aset lancar (Current Asset)
+* **Fungsi:** Mencatat saldo kas atau uang di bank yang dimiliki perusahaan.
+* **Karakteristik:**
+
+  * Bertambah di debit (misal penerimaan uang)
+  * Berkurang di kredit (misal pembayaran keluar)
+
+---
+
+Kalau kamu mau, aku bisa bantu contoh chart of accounts (daftar akun) yang umum dipakai di ERP untuk modul-modul ini juga!

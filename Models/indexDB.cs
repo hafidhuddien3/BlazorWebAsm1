@@ -9,6 +9,14 @@ public class IndexedDbContext : IMagicRepository
     public static readonly IndexedDbSet Employee = new("Employee");
     public static readonly IndexedDbSet Animal = new("Animal");
     public static readonly IndexedDbSet CashFlow = new("CashFlow");
+
+    // acc
+    public static readonly IndexedDbSet Account = new("Account");
+    public static readonly IndexedDbSet JournalEntries = new("JournalEntries");
+    public static readonly IndexedDbSet JournalLines = new("JournalLines");
+    public static readonly IndexedDbSet Invoices = new("Invoices");
+    public static readonly IndexedDbSet Bills = new("Bills");
+    public static readonly IndexedDbSet Payments = new("Payments");
 }
 
 

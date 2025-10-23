@@ -1,0 +1,41 @@
+Oke, berikut contoh jurnal dasar untuk ketiga modul utama dalam ERP (Invoice, Bill, Payment):
+
+---
+
+## 1. **Invoice** (Penjualan ke Customer)
+
+Misal: Jual barang senilai Rp 10.000.000 secara kredit.
+
+| Debit                    | Kredit               | Keterangan                |
+| ------------------------ | -------------------- | ------------------------- |
+| Piutang Usaha 10.000.000 | Penjualan 10.000.000 | Mencatat penjualan kredit |
+
+---
+
+## 2. **Bill** (Pembelian dari Vendor)
+
+Misal: Terima tagihan pembelian senilai Rp 5.000.000.
+
+| Debit                        | Kredit                 | Keterangan                 |
+| ---------------------------- | ---------------------- | -------------------------- |
+| Beban / Persediaan 5.000.000 | Hutang Usaha 5.000.000 | Mencatat tagihan pembelian |
+
+---
+
+## 3. **Payment** (Pembayaran)
+
+### a. Pembayaran dari Customer untuk Invoice Rp 10.000.000
+
+| Debit                 | Kredit                   | Keterangan                        |
+| --------------------- | ------------------------ | --------------------------------- |
+| Kas / Bank 10.000.000 | Piutang Usaha 10.000.000 | Menerima pembayaran dari customer |
+
+### b. Pembayaran ke Vendor untuk Bill Rp 5.000.000
+
+| Debit                  | Kredit               | Keterangan                 |
+| ---------------------- | -------------------- | -------------------------- |
+| Hutang Usaha 5.000.000 | Kas / Bank 5.000.000 | Membayar tagihan ke vendor |
+
+---
+
+Kalau kamu mau, aku juga bisa bantu buat contoh kode jurnal ini dalam C# atau struktur tabelnya. Mau?
