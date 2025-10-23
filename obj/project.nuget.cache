@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "NmSnypeWtqw=",
+  "dgSpecHash": "99FEh9+RB00=",
   "success": true,
   "projectFilePath": "D:\\study\\flutterNet\\MyBlazor1\\MyBlazor1.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\alfian.prayoga\\.nuget\\packages\\magic.indexeddb\\2.0.2\\magic.indexeddb.2.0.2.nupkg.sha512",
     "C:\\Users\\alfian.prayoga\\.nuget\\packages\\microsoft.aspnetcore.authorization\\9.0.5\\microsoft.aspnetcore.authorization.9.0.5.nupkg.sha512",
     "C:\\Users\\alfian.prayoga\\.nuget\\packages\\microsoft.aspnetcore.components\\9.0.5\\microsoft.aspnetcore.components.9.0.5.nupkg.sha512",
     "C:\\Users\\alfian.prayoga\\.nuget\\packages\\microsoft.aspnetcore.components.analyzers\\9.0.5\\microsoft.aspnetcore.components.analyzers.9.0.5.nupkg.sha512",
@@ -12,6 +13,7 @@
     "C:\\Users\\alfian.prayoga\\.nuget\\packages\\microsoft.aspnetcore.components.webassembly\\9.0.5\\microsoft.aspnetcore.components.webassembly.9.0.5.nupkg.sha512",
     "C:\\Users\\alfian.prayoga\\.nuget\\packages\\microsoft.aspnetcore.components.webassembly.devserver\\9.0.5\\microsoft.aspnetcore.components.webassembly.devserver.9.0.5.nupkg.sha512",
     "C:\\Users\\alfian.prayoga\\.nuget\\packages\\microsoft.aspnetcore.metadata\\9.0.5\\microsoft.aspnetcore.metadata.9.0.5.nupkg.sha512",
+    "C:\\Users\\alfian.prayoga\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\6.0.0\\microsoft.bcl.asyncinterfaces.6.0.0.nupkg.sha512",
     "C:\\Users\\alfian.prayoga\\.nuget\\packages\\microsoft.extensions.configuration\\9.0.5\\microsoft.extensions.configuration.9.0.5.nupkg.sha512",
     "C:\\Users\\alfian.prayoga\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\9.0.5\\microsoft.extensions.configuration.abstractions.9.0.5.nupkg.sha512",
     "C:\\Users\\alfian.prayoga\\.nuget\\packages\\microsoft.extensions.configuration.binder\\9.0.5\\microsoft.extensions.configuration.binder.9.0.5.nupkg.sha512",
@@ -30,7 +32,7 @@
     "C:\\Users\\alfian.prayoga\\.nuget\\packages\\microsoft.jsinterop.webassembly\\9.0.5\\microsoft.jsinterop.webassembly.9.0.5.nupkg.sha512",
     "C:\\Users\\alfian.prayoga\\.nuget\\packages\\microsoft.net.illink.tasks\\9.0.5\\microsoft.net.illink.tasks.9.0.5.nupkg.sha512",
     "C:\\Users\\alfian.prayoga\\.nuget\\packages\\microsoft.net.sdk.webassembly.pack\\9.0.5\\microsoft.net.sdk.webassembly.pack.9.0.5.nupkg.sha512",
-    "C:\\Users\\alfian.prayoga\\.nuget\\packages\\tg.blazor.indexeddb\\1.5.0-preview\\tg.blazor.indexeddb.1.5.0-preview.nupkg.sha512",
+    "C:\\Users\\alfian.prayoga\\.nuget\\packages\\system.linq.async\\6.0.1\\system.linq.async.6.0.1.nupkg.sha512",
     "C:\\Users\\alfian.prayoga\\.nuget\\packages\\microsoft.netcore.app.runtime.mono.browser-wasm\\9.0.5\\microsoft.netcore.app.runtime.mono.browser-wasm.9.0.5.nupkg.sha512"
   ],
   "logs": []
