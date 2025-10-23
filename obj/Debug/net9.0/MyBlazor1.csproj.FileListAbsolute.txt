@@ -812,7 +812,6 @@ D:\study\flutterNet\MyBlazor1\obj\Debug\net9.0\scopedcss\projectbundle\MyBlazor1
 D:\study\flutterNet\MyBlazor1\obj\Debug\net9.0\blazor.build.boot-extension.json
 D:\study\flutterNet\MyBlazor1\obj\Debug\net9.0\blazor.boot.json
 D:\study\flutterNet\MyBlazor1\obj\Debug\net9.0\compressed\dsc1cb1fcw-8rbvw3on5j.gz
-D:\study\flutterNet\MyBlazor1\obj\Debug\net9.0\compressed\7scjydo6gh-xd51apremq.gz
 D:\study\flutterNet\MyBlazor1\obj\Debug\net9.0\compressed\try0ohdzs4-bqjiyaj88i.gz
 D:\study\flutterNet\MyBlazor1\obj\Debug\net9.0\compressed\a73g4vgk97-c2jlpeoesf.gz
 D:\study\flutterNet\MyBlazor1\obj\Debug\net9.0\compressed\8t5z0l1hdu-erw9l3u2r3.gz
@@ -1104,10 +1103,11 @@ D:\study\flutterNet\MyBlazor1\obj\Debug\net9.0\compressed\rpt4myjwn5-3mx5s4l5xu.
 D:\study\flutterNet\MyBlazor1\obj\Debug\net9.0\compressed\r7hqs4oegf-k67yju1wuj.gz
 D:\study\flutterNet\MyBlazor1\obj\Debug\net9.0\compressed\j8hhge8xn1-5c87cxjbfz.gz
 D:\study\flutterNet\MyBlazor1\obj\Debug\net9.0\compressed\s80sff8a5n-k9im717kse.gz
-D:\study\flutterNet\MyBlazor1\bin\Debug\net9.0\wwwroot\_framework\MyBlazor1.027bf9uh7p.wasm
-D:\study\flutterNet\MyBlazor1\bin\Debug\net9.0\wwwroot\_framework\MyBlazor1.t26tinp3du.pdb
-D:\study\flutterNet\MyBlazor1\bin\Debug\net9.0\wwwroot\_framework\MyBlazor1.027bf9uh7p.wasm.gz
-D:\study\flutterNet\MyBlazor1\bin\Debug\net9.0\wwwroot\_framework\MyBlazor1.t26tinp3du.pdb.gz
-D:\study\flutterNet\MyBlazor1\obj\Debug\net9.0\compressed\7daeqraibi-027bf9uh7p.gz
-D:\study\flutterNet\MyBlazor1\obj\Debug\net9.0\compressed\mzhimchgaf-t26tinp3du.gz
-D:\study\flutterNet\MyBlazor1\obj\Debug\net9.0\compressed\em032y3m17-zssmnx12zn.gz
+D:\study\flutterNet\MyBlazor1\bin\Debug\net9.0\wwwroot\_framework\MyBlazor1.4rvhmaoqqj.wasm
+D:\study\flutterNet\MyBlazor1\bin\Debug\net9.0\wwwroot\_framework\MyBlazor1.4slhmqoixw.pdb
+D:\study\flutterNet\MyBlazor1\bin\Debug\net9.0\wwwroot\_framework\MyBlazor1.4rvhmaoqqj.wasm.gz
+D:\study\flutterNet\MyBlazor1\bin\Debug\net9.0\wwwroot\_framework\MyBlazor1.4slhmqoixw.pdb.gz
+D:\study\flutterNet\MyBlazor1\obj\Debug\net9.0\compressed\7scjydo6gh-mxjd30pefj.gz
+D:\study\flutterNet\MyBlazor1\obj\Debug\net9.0\compressed\7daeqraibi-4rvhmaoqqj.gz
+D:\study\flutterNet\MyBlazor1\obj\Debug\net9.0\compressed\mzhimchgaf-4slhmqoixw.gz
+D:\study\flutterNet\MyBlazor1\obj\Debug\net9.0\compressed\em032y3m17-usj4txktiq.gz

@@ -1,4 +1,3 @@
-@using System.Text.Json;
 @inject IMagicIndexedDb _MagicDb
 @page "/home-button"
 
@@ -35,15 +34,14 @@ Age = 30
         IMagicQuery<Client> personQuery = await _MagicDb.Query<Client>();
         var personList = await personQuery.ToListAsync();
 
-        @* Console.WriteLine("personQuery:");  *@
+        @* Console.WriteLine("personQuery:"); *@
         foreach (var person in personList)
         {
             Console.WriteLine($"Id: {person.Id}, Name: {person.Name}, Age: {person.Age}");
             @* string json = JsonSerializer.Serialize(person);
-            Console.WriteLine(json); // This requires Client class to have a proper ToString() override *@
+Console.WriteLine(json); // This requires Client class to have a proper ToString() override *@
         }
 
     }
 
 }
-

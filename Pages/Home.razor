@@ -1,7 +1,199 @@
-﻿@page "/"
+﻿@inject IMagicIndexedDb _MagicDb
+@inject IJSRuntime JS
+@page "/"
+@{
+    decimal runningTotal = 0;
+}
 
-<h1>Hello, world!</h1>
-<p>Welcome to your new app.</p>
+<h1>Cash Flow</h1>
+@* <p>Welcome to your new app</p> *@
+
+
+@if (cashFlows == null || cashFlows.Count == 0)
+{
+    @* <div class="text-center" style="background-color: red; color: white;">
+No Record</div> *@
+}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Description</th>
+            @* <th>Cash Inflow</th>
+            <th>Cash Outflow</th> *@
+            <th>Net Cash Flow</th>
+            <th>Balance</th>
+        </tr>
+    </thead>
+    <tbody>
+
+
+        @foreach (var item in cashFlows)
+        {
+            runningTotal += item.CashInflow - item.CashOutflow;
+            <tr>
+                <td>@item.TransactionDate.ToShortDateString()</td>
+                <td>@item.Description</td>
+                @* <td>@item.CashInflow.ToString("C")</td>
+            <td>@item.CashOutflow.ToString("C")</td> *@
+                <td>@((item.CashInflow - item.CashOutflow).ToString("N0"))</td>
+                <td>@runningTotal.ToString("N0")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+@if (cashFlows == null || cashFlows.Count == 0)
+{
+    <div class="text-center mb-3">
+        No Record</div>
+}
+
+<div style="display: flex; gap: 10px;">
+    <InputText @bind-Value="desc" placeholder="Desc" class="form-control" />
+    <InputNumber @bind-Value="netCash" placeholder="Net Cash" class="form-control" />
+</div>
+
+<br />
+<div class="text-center">
+    <button class="btn btn-primary me-2" @onclick="AddFlow">Plus Cash +</button>
+    <button class="btn btn-primary me-2" @onclick="AddMinusFlow">Minus Cash -</button>
+</div>
+<div class="text-center">
+    <br>
+    <button class="btn btn-success" @onclick="DeleteLastFlow">Delete Last</button>
+</div>
+
+
+@if (!string.IsNullOrEmpty(errorMessage))
+{
+    <div class="alert alert-warning mt-3">@errorMessage</div>
+}
 
 @code {
+    private string? desc;
+    private int? netCash;
+    @* private string? email; *@
+
+    private string? errorMessage;
+    List<CashFlow> cashFlows = new List<CashFlow>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Code to run when component initializes (sync)
+        @* LoadData(); *@
+        await GetAllFlow();
+    }
+
+    // Or async version
+    @* protected override async Task OnInitializedAsync()
+{
+await LoadDataAsync();
+} *@
+
+
+    private async Task AddFlow()
+    {
+        if (string.IsNullOrWhiteSpace(desc) || netCash == null || netCash == 0)
+        {
+            @* await JS.InvokeVoidAsync("alert", "Please complete form"); *@
+            errorMessage = "⚠️ Please complete the form.";
+            return;
+        }
+        netCash = Math.Abs(netCash.Value);
+
+        errorMessage = null;
+
+
+        var newCashFlow = new CashFlow
+            {
+                Description = desc,
+                CashInflow = (decimal)netCash.Value,
+                CashOutflow = 0
+            };
+
+        IMagicQuery<CashFlow> query = await _MagicDb.Query<CashFlow>();
+        await query.AddAsync(newCashFlow);
+        Console.WriteLine($"Added flow: {desc} - {netCash}");
+
+        desc = null;
+        netCash = 0;
+        await GetAllFlow();
+    }
+
+
+    private async Task AddMinusFlow()
+    {
+        if (string.IsNullOrWhiteSpace(desc) || netCash == null || netCash == 0)
+        {
+            @* await JS.InvokeVoidAsync("alert", "Please complete form"); *@
+            errorMessage = "⚠️ Please complete the form.";
+            return;
+        }
+        netCash = Math.Abs(netCash.Value);
+
+        errorMessage = null;
+
+
+        var newCashFlow = new CashFlow
+            {
+                Description = desc,
+                CashInflow = 0,
+                CashOutflow = (decimal)netCash.Value
+            };
+
+        IMagicQuery<CashFlow> query = await _MagicDb.Query<CashFlow>();
+        await query.AddAsync(newCashFlow);
+        Console.WriteLine($"Added flow: {desc} - {netCash}");
+
+        desc = null;
+        netCash = 0;
+        await GetAllFlow();
+    }
+
+
+    private async Task GetAllFlow()
+    {
+
+        IMagicQuery<CashFlow> Query = await _MagicDb.Query<CashFlow>();
+        var flowList = await Query.ToListAsync();
+        cashFlows = flowList;
+        @* Console.WriteLine("personQuery:"); *@
+        foreach (var flow in flowList)
+        {
+            @* Console.WriteLine($"Id: {person.Id}, Name: {person.Name}, Age: {person.Age}"); *@
+            @* string json = JsonSerializer.Serialize(person);
+Console.WriteLine(json); // This requires Client class to have a proper ToString() override *@
+        }
+
+    }
+
+    private async Task DeleteLastFlow()
+    {
+        IMagicQuery<CashFlow> query = await _MagicDb.Query<CashFlow>();
+
+        // Get all flows fresh from DB
+        var allFlows = await query.ToListAsync();
+
+        var lastItem = allFlows.LastOrDefault();
+
+        if (lastItem != null)
+        {
+            await query.DeleteAsync(lastItem);
+        }
+
+        await GetAllFlow(); // Refresh your UI list
+    }
+
+
+
+
+    @* = new()
+{
+new CashFlow { TransactionDate = DateTime.Now.AddDays(-3), Description = "Sale", CashInflow = 1000m, CashOutflow = 0m },
+new CashFlow { TransactionDate = DateTime.Now.AddDays(-2), Description = "Rent", CashInflow = 0m, CashOutflow = 500m },
+new CashFlow { TransactionDate = DateTime.Now.AddDays(-1), Description = "Loan", CashInflow = 2000m, CashOutflow = 0m },
+}; *@
+
+
 }
