@@ -1,0 +1,187 @@
+﻿@inject IMagicIndexedDb _MagicDb
+@inject IJSRuntime JS
+@page "/payment"
+@{
+    decimal runningTotal = 0;
+}
+
+<h1>Payment</h1>
+@* <p>Welcome to your new app</p> *@
+
+
+@if (Payments == null || Payments.Count == 0)
+{
+    @* <div class="text-center" style="background-color: red; color: white;">
+No Record</div> *@
+}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>PaymentMethod</th>
+            <th>PaymentDate</th>
+            <th>Amount</th>
+            @* <th>Status</th> *@
+        </tr>
+    </thead>
+    <tbody>
+
+
+        @foreach (var item in Payments)
+        {
+            @*
+        public string? PaymentMethod { get; set; }
+        public DateTime? PaymentDate { get; set; }
+        public DateTime? DueDate { get; set; }
+        public decimal? TotalAmount { get; set; }
+        public string? Status { get; set; }
+        public DateTime? CreatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; } = DateTime.Now;
+
+        *@
+            <tr>
+                <td>@item.PaymentMethod</td>
+                <td>@item.PaymentDate</td>
+                <td>@item.Amount?.ToString("N0")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+@if (Payments == null || Payments.Count == 0)
+{
+    <div class="text-center mb-3">
+        No Record</div>
+}
+
+<div style="display: flex; gap: 10px;">
+    <InputText @bind-Value="PaymentMethod" placeholder="PaymentMethod" class="form-control" />
+    <InputNumber @bind-Value="TotalAmount" placeholder="Amount" class="form-control" />
+</div>
+
+<br />
+<div class="text-center">
+    <button class="btn btn-primary me-2" @onclick="AddFlow">Add Payment</button>
+    @* <button class="btn btn-primary me-2" @onclick="AddMinusFlow">Minus Cash -</button> *@
+</div>
+<div class="text-center">
+    <br>
+    <button class="btn btn-success" @onclick="DeleteLastFlow">Delete Last</button>
+</div>
+
+
+@if (!string.IsNullOrEmpty(errorMessage))
+{
+    <div class="alert alert-warning mt-3">@errorMessage</div>
+}
+
+@code {
+
+    private string? PaymentMethod = "";
+    private DateTime? PaymentDate; // | DATETIME | Tanggal Payment dibuat |
+    private DateTime? DueDate;
+    private decimal TotalAmount;
+    private string? Status = "";//| Status | VARCHAR(50) | Status Payment (e.g. Pending, Paid, Overdue) |
+
+    @* private string? email; *@
+
+    private string? errorMessage;
+    List<Payments> Payments = new List<Payments>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Code to run when component initializes (sync)
+        @* LoadData(); *@
+        await GetAllPayment();
+    }
+
+    // Or async version
+    @* protected override async Task OnInitializedAsync()
+{
+await LoadDataAsync();
+} *@
+
+
+    private async Task AddFlow()
+    {
+        if (string.IsNullOrWhiteSpace(PaymentMethod) || TotalAmount == 0)
+        {
+            @* await JS.InvokeVoidAsync("alert", "Please complete form"); *@
+            errorMessage = "⚠️ Please complete the form.";
+            return;
+        }
+        TotalAmount = Math.Abs(TotalAmount);
+
+        errorMessage = null;
+
+            @* public DateTime? PaymentDate { get; set; }     // Tanggal pembayaran dilakukan                      
+    public decimal? Amount { get; set; }  // Jumlah uang yang dibayarkan                       
+    public string? PaymentMethod { get; set; }  // Metode pembayaran (Cash, Bank, Transfer)          
+    public string? InvoiceId { get; set; } // Relasi ke invoice (jika pembayaran dari customer) |
+    public string? BillId { get; set; } // Relasi ke bill (jika pembayaran ke vendor) *@
+
+
+        Payments? newPayment = new Payments
+            {
+                PaymentMethod = PaymentMethod,
+                PaymentDate = DateTime.Now, // | DATETIME | Tanggal Payment dibuat |
+                Amount = TotalAmount,
+                InvoiceId = "???",
+                BillId = "???",
+                CreatedAt = DateTime.Now,
+            };
+
+        IMagicQuery<Payments> query = await _MagicDb.Query<Payments>();
+        await query.AddAsync(newPayment);
+
+        PaymentMethod = null;
+        TotalAmount = 0;
+        await GetAllPayment();
+    }
+
+
+
+    private async Task GetAllPayment()
+    {
+
+        IMagicQuery<Payments> Query = await _MagicDb.Query<Payments>();
+        var flowList = await Query.ToListAsync();
+        Payments = flowList;
+        @* Console.WriteLine("personQuery:"); *@
+        foreach (var flow in flowList)
+        {
+            @* Console.WriteLine($"Id: {person.Id}, Name: {person.Name}, Age: {person.Age}"); *@
+            @* string json = JsonSerializer.Serialize(person);
+Console.WriteLine(json); // This requires Client class to have a proper ToString() override *@
+        }
+
+    }
+
+    private async Task DeleteLastFlow()
+    {
+        IMagicQuery<Payments> query = await _MagicDb.Query<Payments>();
+
+        // Get all flows fresh from DB
+        var allFlows = await query.ToListAsync();
+
+        var lastItem = allFlows.LastOrDefault();
+
+        if (lastItem != null)
+        {
+            await query.DeleteAsync(lastItem);
+        }
+
+        await GetAllPayment(); // Refresh your UI list
+    }
+
+
+
+
+    @* = new()
+{
+new Payment { TransactionDate = DateTime.Now.AddDays(-3), Description = "Sale", CashInflow = 1000m, CashOutflow = 0m },
+new Payment { TransactionDate = DateTime.Now.AddDays(-2), Description = "Rent", CashInflow = 0m, CashOutflow = 500m },
+new Payment { TransactionDate = DateTime.Now.AddDays(-1), Description = "Loan", CashInflow = 2000m, CashOutflow = 0m },
+}; *@
+
+
+}
