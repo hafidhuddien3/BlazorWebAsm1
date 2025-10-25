@@ -22,6 +22,7 @@ No Record</div> *@
             <th>BillDate</th>
             <th>TotalAmount</th>
             <th>Status</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -44,6 +45,17 @@ No Record</div> *@
                 <td>@item.BillDate</td>
                 <td>@item.TotalAmount?.ToString("N0")</td>
                 <td>@item.Status</td>
+                <td>
+                    @if (item.Status != "Paid")
+                    {
+                        <button class="btn btn-primary me-2" @onclick="() => Pay(item)">Pay</button>
+                    }
+                    else
+                    {
+                        <button class="btn btn-secondary me-2" disabled>Paid</button>
+                    }
+
+                </td>
             </tr>
         }
     </tbody>
@@ -92,7 +104,7 @@ No Record</div> *@
     {
         // Code to run when component initializes (sync)
         @* LoadData(); *@
-        await GetAllInvoice();
+        await GetAllBill();
     }
 
     // Or async version
@@ -116,26 +128,26 @@ await LoadDataAsync();
 
 
         var newInvoice = new Bills
-            {
-                VendorId = VendorId,
-                BillDate = DateTime.Now, // | DATETIME | Tanggal invoice dibuat |
-                DueDate = null,
-                TotalAmount = TotalAmount,
-                Status = "Pending",
-                CreatedAt = DateTime.Now,
-            };
+        {
+            VendorId = VendorId,
+            BillDate = DateTime.Now, // | DATETIME | Tanggal invoice dibuat |
+            DueDate = null,
+            TotalAmount = TotalAmount,
+            Status = "Pending",
+            CreatedAt = DateTime.Now,
+        };
 
         IMagicQuery<Bills> query = await _MagicDb.Query<Bills>();
         await query.AddAsync(newInvoice);
 
         VendorId = null;
         TotalAmount = 0;
-        await GetAllInvoice();
+        await GetAllBill();
     }
 
 
 
-    private async Task GetAllInvoice()
+    private async Task GetAllBill()
     {
 
         IMagicQuery<Bills> Query = await _MagicDb.Query<Bills>();
@@ -160,15 +172,57 @@ Console.WriteLine(json); // This requires Client class to have a proper ToString
 
         var lastItem = allFlows.LastOrDefault();
 
+        if (lastItem?.Status == "Paid")
+        {
+            return;
+        }
+
         if (lastItem != null)
         {
             await query.DeleteAsync(lastItem);
         }
 
-        await GetAllInvoice(); // Refresh your UI list
+        await GetAllBill(); // Refresh your UI list
     }
 
+    private async Task Pay(Bills item)
+    {
+        @* Logic to handle payment for the selected bill *@
+        // For example, you might want to navigate to a payment page or open a payment dialog
+        @* await JS.InvokeVoidAsync("alert", $"Initiating payment for Bill ID: {item.Id}"); *@
 
+        bool confirmed = await JS.InvokeAsync<bool>("confirm", $"Are you sure you want to pay Bill ID: {item.Id}?");
+        if (confirmed)
+        {
+            // Proceed with payment logic
+            @* await JS.InvokeVoidAsync("alert", $"Initiating payment for Bill ID: {item.Id}"); *@
+            // make payment record
+            Payments? newPayment = new Payments
+            {
+                PaymentMethod = "Bill Payment",
+                PaymentDate = DateTime.Now, // | DATETIME | Tanggal Payment dibuat |
+                Amount = item.TotalAmount ?? 0,
+                InvoiceId = null,
+                BillId = item.Id.ToString(),
+                CreatedAt = DateTime.Now,
+            };
+            IMagicQuery<Payments> paymentQuery = await _MagicDb.Query<Payments>();
+            await paymentQuery.AddAsync(newPayment);
+            // change bill status to Paid
+            IMagicQuery<Bills> billQuery = await _MagicDb.Query<Bills>();
+            item.Status = "Paid";
+            await billQuery.UpdateAsync(item);
+
+            await GetAllBill();
+
+        }
+        else
+        {
+            // Optional: handle cancellation
+            @* await JS.InvokeVoidAsync("alert", "Payment cancelled."); *@
+        }
+
+    }
 
 
     @* = new()

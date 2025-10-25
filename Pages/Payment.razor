@@ -18,7 +18,7 @@ No Record</div> *@
 <table class="table table-striped">
     <thead>
         <tr>
-            <th>PaymentMethod</th>
+            <th>Customer/Vendor</th>
             <th>PaymentDate</th>
             <th>Amount</th>
             @* <th>Status</th> *@
@@ -40,7 +40,7 @@ No Record</div> *@
 
         *@
             <tr>
-                <td>@item.PaymentMethod</td>
+                <td>@(item.Customer != null ? ("Customer: "+item.Customer) : ("Vendor: "+item.Vendor))</td>
                 <td>@item.PaymentDate</td>
                 <td>@item.Amount?.ToString("N0")</td>
             </tr>
@@ -53,19 +53,19 @@ No Record</div> *@
         No Record</div>
 }
 
-<div style="display: flex; gap: 10px;">
+@* <div style="display: flex; gap: 10px;">
     <InputText @bind-Value="PaymentMethod" placeholder="PaymentMethod" class="form-control" />
     <InputNumber @bind-Value="TotalAmount" placeholder="Amount" class="form-control" />
-</div>
+</div> *@
 
 <br />
 <div class="text-center">
-    <button class="btn btn-primary me-2" @onclick="AddFlow">Add Payment</button>
+    @* <button class="btn btn-primary me-2" @onclick="AddFlow">Add Payment</button> *@
     @* <button class="btn btn-primary me-2" @onclick="AddMinusFlow">Minus Cash -</button> *@
 </div>
 <div class="text-center">
     <br>
-    <button class="btn btn-success" @onclick="DeleteLastFlow">Delete Last</button>
+    @* <button class="btn btn-success" @onclick="DeleteLastFlow">Delete Last</button> *@
 </div>
 
 
@@ -85,7 +85,7 @@ No Record</div> *@
     @* private string? email; *@
 
     private string? errorMessage;
-    List<Payments> Payments = new List<Payments>();
+    List<PaymentViewModel> Payments = new List<PaymentViewModel>();
 
     protected override async Task OnInitializedAsync()
     {
@@ -113,7 +113,7 @@ await LoadDataAsync();
 
         errorMessage = null;
 
-            @* public DateTime? PaymentDate { get; set; }     // Tanggal pembayaran dilakukan                      
+        @* public DateTime? PaymentDate { get; set; }     // Tanggal pembayaran dilakukan                      
     public decimal? Amount { get; set; }  // Jumlah uang yang dibayarkan                       
     public string? PaymentMethod { get; set; }  // Metode pembayaran (Cash, Bank, Transfer)          
     public string? InvoiceId { get; set; } // Relasi ke invoice (jika pembayaran dari customer) |
@@ -121,14 +121,14 @@ await LoadDataAsync();
 
 
         Payments? newPayment = new Payments
-            {
-                PaymentMethod = PaymentMethod,
-                PaymentDate = DateTime.Now, // | DATETIME | Tanggal Payment dibuat |
-                Amount = TotalAmount,
-                InvoiceId = "???",
-                BillId = "???",
-                CreatedAt = DateTime.Now,
-            };
+        {
+            PaymentMethod = PaymentMethod,
+            PaymentDate = DateTime.Now, // | DATETIME | Tanggal Payment dibuat |
+            Amount = TotalAmount,
+            InvoiceId = "???",
+            BillId = "???",
+            CreatedAt = DateTime.Now,
+        };
 
         IMagicQuery<Payments> query = await _MagicDb.Query<Payments>();
         await query.AddAsync(newPayment);
@@ -138,23 +138,59 @@ await LoadDataAsync();
         await GetAllPayment();
     }
 
+    public class PaymentViewModel
+    {
+        public int PaymentId { get; set; }
+        public decimal? Amount { get; set; }
+        public DateTime? PaymentDate { get; set; }
+        public string? Customer { get; set; }
+        public string? Vendor { get; set; }
+    }
+
 
 
     private async Task GetAllPayment()
     {
+        // Fetch Payments
+        var paymentQuery = await _MagicDb.Query<Payments>();
+        var payments = await paymentQuery.ToListAsync();
 
-        IMagicQuery<Payments> Query = await _MagicDb.Query<Payments>();
-        var flowList = await Query.ToListAsync();
-        Payments = flowList;
-        @* Console.WriteLine("personQuery:"); *@
-        foreach (var flow in flowList)
-        {
-            @* Console.WriteLine($"Id: {person.Id}, Name: {person.Name}, Age: {person.Age}"); *@
-            @* string json = JsonSerializer.Serialize(person);
-Console.WriteLine(json); // This requires Client class to have a proper ToString() override *@
-        }
+        // Fetch Invoices
+        var invoiceQuery = await _MagicDb.Query<Invoices>();
+        var invoices = await invoiceQuery.ToListAsync();
 
+        // Fetch Bills
+        var billQuery = await _MagicDb.Query<Bills>();
+        var bills = await billQuery.ToListAsync();
+
+        // Perform left join
+        IEnumerable<PaymentViewModel>? joined = from p in payments
+                                                join i in invoices on p.InvoiceId equals i.Id.ToString() into piGroup
+                                                from i in piGroup.DefaultIfEmpty()
+                                                join b in bills on p.BillId equals b.Id.ToString() into pbGroup
+                                                from b in pbGroup.DefaultIfEmpty()
+                                                select new PaymentViewModel
+                                                {
+                                                    PaymentId = p.Id,
+                                                    Amount = p.Amount,
+                                                    PaymentDate = p.PaymentDate,
+                                                    Customer = i?.CustomerId,
+                                                    Vendor = b?.VendorId
+                                                };
+
+        // Optional: assign to a property for display
+        Payments = joined.ToList();
+
+        // Optional: debug output
+        @* foreach (var item in CombinedPayments)
+    {
+        Console.WriteLine($"PaymentId: {item.PaymentId}, Amount: {item.Amount}, Invoice: {item.InvoiceNumber}, Bill: {item.BillReference}");
+    } *@
     }
+
+    // Property to hold the result
+    private List<object> CombinedPayments = new();
+
 
     private async Task DeleteLastFlow()
     {

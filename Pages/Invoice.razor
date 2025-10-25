@@ -160,6 +160,11 @@ Console.WriteLine(json); // This requires Client class to have a proper ToString
 
         var lastItem = allFlows.LastOrDefault();
 
+        if (lastItem?.Status == "Paid")
+        {
+            return;
+        }
+
         if (lastItem != null)
         {
             await query.DeleteAsync(lastItem);
