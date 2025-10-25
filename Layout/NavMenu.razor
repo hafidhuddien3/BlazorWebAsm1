@@ -1,6 +1,7 @@
 ﻿<div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="">Cash Flow</a>
+        @* <a class="navbar-brand" href="">Cash Flow</a> *@
+        <a class="navbar-brand" href="">Accounting</a>
         <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -11,31 +12,31 @@
     <nav class="nav flex-column">
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
+                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> CashFlow
             </NavLink>
         </div>
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="invoice">
-                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Invoice
+                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Invoice
             </NavLink>
         </div>
-         <div class="nav-item px-3">
+        <div class="nav-item px-3">
             <NavLink class="nav-link" href="bill">
                 <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Bill
             </NavLink>
         </div>
-                <div class="nav-item px-3">
+        <div class="nav-item px-3">
             <NavLink class="nav-link" href="payment">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Payment
+                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Payment
             </NavLink>
-        </div> 
-<!-- <span class="bi bi-receipt"></span> Invoice
+        </div>
+        <!-- <span class="bi bi-receipt"></span> Invoice
 <span class="bi bi-file-earmark-text"></span> Bill
 <span class="bi bi-credit-card"></span> Payment
 <span class="bi bi-journal-bookmark"></span> Buku Besar
 <span class="bi bi-bar-chart-line"></span> Untung Rugi -->
 
-        
+
     </nav>
 </div>
 
