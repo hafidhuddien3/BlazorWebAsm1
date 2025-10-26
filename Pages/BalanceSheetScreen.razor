@@ -1,12 +1,12 @@
 @inject IMagicIndexedDb _MagicDb
 @inject IJSRuntime JS
-@page "/profit-and-loss"
+@page "/balance-sheet"
 @{
     decimal runningTotal = 0;
 }
 
-<h1>Profit and Lost</h1>
-<h5>(Revenue - Expense)</h5>
+<h1>Balance Sheet</h1>
+<h5>(Asset = Liability + Equity)</h5>
 @* <p>Welcome to your new app</p> *@
 
 
@@ -19,9 +19,9 @@ No Record</div> *@
 <table class="table table-striped">
     <thead>
         <tr>
-            <th>Total Revenue</th>
-            <th>Total Expense</th>
-            <th>Net Profit</th>
+            <th>Asset</th>
+            <th>Liability + Equity</th>
+            @* <th>Net Profit</th> *@
         </tr>
     </thead>
     <tbody>
@@ -30,9 +30,9 @@ No Record</div> *@
         @foreach (var item in pnl ?? [])
         {
             <tr>
-                <td>@item?.totalRevenue.ToString("N0")</td>
-                <td>@item?.totalExpense.ToString("N0")</td>
-                <td>@item?.netProfitAndLoss.ToString("N0")</td>
+                <td>@item?.asset.ToString("N0")</td>
+                <td>@(item?.liability.ToString("N0")+" + "+item?.equity.ToString("N0")+" = "+(item?.liability+item?.equity)?.ToString("N0"))</td>
+                @* <td>@item?.netProfitAndLoss.ToString("N0")</td> *@
             </tr>
         }
     </tbody>
@@ -61,14 +61,12 @@ No Record</div> *@
     private DateTime? JournalLineDate; // | DATETIME | Tanggal invoice dibuat |
     private DateTime? DueDate;
     private decimal TotalAmount;
-    private List<ProfitAndLoss> pnl = new List<ProfitAndLoss>();
+    private List<BalanceSheet> pnl = new List<BalanceSheet>();
     private string? Status = "";//| Status | VARCHAR(50) | Status invoice (e.g. Pending, Paid, Overdue) |
 
     @* private string? email; *@
 
     private string? errorMessage;
-    List<JournalLines> JournalLines = new List<JournalLines>();
-
     protected override async Task OnInitializedAsync()
     {
         // Code to run when component initializes (sync)
@@ -88,48 +86,41 @@ await LoadDataAsync();
 
         IMagicQuery<JournalLines> Query = await _MagicDb.Query<JournalLines>();
         var allItems = await Query.ToListAsync();
-        var revenueList = allItems.Where(x => x.AccountType == AccountType.Revenue).ToList();
 
-        JournalLines = revenueList;
-        var totalRevenue = revenueList.Sum(x => x.Credit ?? 0 - x.Debit ?? 0);
+        var assetList = allItems.Where(x => x.AccountType == AccountType.Asset).ToList();
+        var totalAsset = assetList.Sum(x => x.Debit ?? 0 - x.Credit ?? 0);
 
-        var expenseList = allItems.Where(x => x.AccountType == AccountType.Expense).ToList();
+        var liabilityList = allItems.Where(x => x.AccountType == AccountType.Liability).ToList();
+        var totalLiability = liabilityList.Sum(x => x.Credit ?? 0 - x.Debit ?? 0);
 
-        @* JournalLines = expenseList; *@
-        var totalExpense = expenseList.Sum(x => x.Debit ?? 0 - x.Credit ?? 0);
+        var equityList = allItems.Where(x => x.AccountType == AccountType.Equity).ToList();
+        var totalEquity = equityList.Sum(x => x.Credit ?? 0 - x.Debit ?? 0);
 
-        var profitAndLoss = totalRevenue - totalExpense;
-        Console.WriteLine("totalRevenue: " + totalRevenue);
+        var totalEquitySum = totalAsset - totalLiability;
+
+        @* var profitAndLoss = totalRevenue - totalExpense; *@
+        @* Console.WriteLine("totalRevenue: " + totalRevenue);
         Console.WriteLine("totalExpense: " + totalExpense);
-        Console.WriteLine("Proofit and Loss: " + profitAndLoss);
+        Console.WriteLine("Proofit and Loss: " + profitAndLoss); *@
 
-        pnl = new List<ProfitAndLoss>
+        pnl = new List<BalanceSheet>
 {
-new ProfitAndLoss
+new BalanceSheet
 {
-totalRevenue=totalRevenue,
-totalExpense=totalExpense,
-netProfitAndLoss= profitAndLoss
+asset=totalAsset,
+liability=totalLiability,
+equity= totalEquitySum+totalEquity
 }
 
 };
-
-        @* Console.WriteLine("personQuery:"); *@
-        foreach (var flow in revenueList)
-        {
-            @* Console.WriteLine($"Id: {person.Id}, Name: {person.Name}, Age: {person.Age}"); *@
-            @* string json = JsonSerializer.Serialize(person);
-Console.WriteLine(json); // This requires Client class to have a proper ToString() override *@
-        }
-
     }
 
 
-    class ProfitAndLoss()
+    class BalanceSheet()
     {
-        public decimal totalRevenue { get; set; }
-        public decimal totalExpense { get; set; }
-        public decimal netProfitAndLoss { get; set; }
+        public decimal asset { get; set; }
+        public decimal liability { get; set; }
+        public decimal equity { get; set; }
     }
 
 

@@ -2,7 +2,7 @@
     <div class="container-fluid">
         @* <a class="navbar-brand" href="">Cash Flow</a> *@
         @* <a class="navbar-brand" href="">Accounting</a> *@
-        <a class="navbar-brand" href="">Basic Invoice/Bill</a>
+        <a class="navbar-brand" href="">Akuntansi App</a>
         <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -11,26 +11,103 @@
 
 <div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu">
     <nav class="nav flex-column">
-        <div class="nav-item px-3">
+        @* <div class="nav-item px-3">
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> CashFlow
+                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> CashFlow
             </NavLink>
-        </div>
+        </div> *@
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="invoice">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Invoice
+            @* <NavLink class="nav-link" href="invoice"> *@
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Invoice
             </NavLink>
         </div>
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="bill">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Bill
+                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Bill
             </NavLink>
         </div>
-        <div class="nav-item px-3">
+        @* <div class="nav-item px-3">
             <NavLink class="nav-link" href="payment">
                 <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Payment
             </NavLink>
+        </div> *@
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="payment">
+                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Payment
+            </NavLink>
         </div>
+        <div class="" style="height:1px; background-color:lightgray; margin-bottom:10px;">
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="gl">
+                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> General Ledger
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="profit-and-loss">
+                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Profit and Loss
+            </NavLink>
+        </div>
+
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="balance-sheet">
+                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Balance Sheet
+            </NavLink>
+        </div>
+
+        <div class="" style="height:1px; background-color:lightgray; margin-bottom:10px;">
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="piutang">
+                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Piutang Ledger
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="penjualan">
+                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Penjualan Ledger
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="beban">
+                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Beban Ledger
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="hutang">
+                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Hutang Ledger
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="kas">
+                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Kas / Bank Ledger
+            </NavLink>
+        </div>
+        <div class="" style="height:1px; background-color:lightgray; margin-bottom:10px;">
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="asset">
+                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Asset Ledger
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="liability">
+                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Liability Ledger
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="revenue">
+                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Revenue Ledger
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="expense">
+                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Expense Ledger
+            </NavLink>
+        </div>
+        -
+        -
+        -
         <!-- <span class="bi bi-receipt"></span> Invoice
 <span class="bi bi-file-earmark-text"></span> Bill
 <span class="bi bi-credit-card"></span> Payment

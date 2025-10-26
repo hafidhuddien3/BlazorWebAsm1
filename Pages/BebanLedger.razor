@@ -1,11 +1,11 @@
 @inject IMagicIndexedDb _MagicDb
 @inject IJSRuntime JS
-@page "/gl"
+@page "/beban"
 @{
     decimal runningTotal = 0;
 }
 
-<h1>General Ledger</h1>
+<h1>Beban Ledger</h1>
 @* <p>Welcome to your new app</p> *@
 
 
@@ -24,6 +24,7 @@ No Record</div> *@
             <th>AccountType</th>
             <th>Debit</th>
             <th>Credit</th>
+            <th>Saldo</th>
         </tr>
     </thead>
     <tbody>
@@ -41,6 +42,7 @@ No Record</div> *@
         public DateTime? UpdatedAt { get; set; } = DateTime.Now;
 
         *@
+        runningTotal += item?.Debit??0 - item?.Credit??0;
             <tr>
                 <td>@item.Date</td>
                 <td>@item.JournalDescription</td>
@@ -49,6 +51,7 @@ No Record</div> *@
                 @* <td>@item.AccountType.ToString("N0")</td> *@
                 <td>@item.Debit?.ToString("N0")</td>
                 <td>@item.Credit?.ToString("N0")</td>
+                <td>@runningTotal.ToString("N0")</td>
                 @* <td>
                     @if (item.Status != "Paid")
                     {
@@ -113,9 +116,9 @@ await LoadDataAsync();
     {
 
         IMagicQuery<JournalLines> Query = await _MagicDb.Query<JournalLines>();
-        var flowList = await Query.ToListAsync();
+        var flowList = await Query.Where(x => x.Description=="Beban / Persediaan").ToListAsync();
         JournalLines = flowList;
-        Console.WriteLine("JournalLines: " + JsonSerializer.Serialize(flowList));
+        @* Console.WriteLine("personQuery:"); *@
         foreach (var flow in flowList)
         {
             @* Console.WriteLine($"Id: {person.Id}, Name: {person.Name}, Age: {person.Age}"); *@

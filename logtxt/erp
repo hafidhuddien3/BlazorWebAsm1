@@ -29,4 +29,45 @@ Debit/Credit shows where money comes from and where it goes.
 | Expenses     | Debit          | Debit         |
 | Liabilities  | Credit         | Credit        |
 | Equity       | Credit         | Credit        |
-| **Revenue**  | **Credit**     | **Credit**    |
+| Revenue      | Credit         | Credit        |
+
+Tentu! Tabel tersebut menjelaskan **jenis akun dalam akuntansi** beserta **saldo normalnya** dan bagaimana nilainya bertambah. Berikut penjelasan masing-masing:
+
+---
+
+### 💰 1. **Assets (Aset)**
+- **Saldo Normal:** Debit
+- **Bertambah dengan:** Debit
+- **Penjelasan:** Aset adalah segala sesuatu yang dimiliki perusahaan, seperti kas, piutang, persediaan, dan peralatan. Karena aset menunjukkan nilai yang dimiliki, maka penambahan aset dicatat di sisi debit.
+
+---
+
+### 📉 2. **Expenses (Beban)**
+- **Saldo Normal:** Debit
+- **Bertambah dengan:** Debit
+- **Penjelasan:** Beban adalah pengeluaran untuk operasional, seperti gaji, listrik, dan sewa. Karena beban mengurangi laba, maka pencatatannya juga di sisi debit saat bertambah.
+
+---
+
+### 💸 3. **Liabilities (Kewajiban)**
+- **Saldo Normal:** Kredit
+- **Bertambah dengan:** Kredit
+- **Penjelasan:** Kewajiban adalah utang atau tanggungan perusahaan, seperti utang usaha atau pinjaman bank. Karena kewajiban menunjukkan jumlah yang harus dibayar, maka penambahannya dicatat di sisi kredit.
+
+---
+
+### 📊 4. **Equity (Ekuitas)**
+- **Saldo Normal:** Kredit
+- **Bertambah dengan:** Kredit
+- **Penjelasan:** Ekuitas adalah hak pemilik atas aset perusahaan setelah dikurangi kewajiban. Termasuk modal dan laba ditahan. Ketika pemilik menambah modal atau perusahaan memperoleh laba, ekuitas bertambah di sisi kredit.
+
+---
+
+### 📈 5. **Revenue (Pendapatan)**
+- **Saldo Normal:** Kredit
+- **Bertambah dengan:** Kredit
+- **Penjelasan:** Pendapatan adalah hasil dari penjualan barang atau jasa. Karena pendapatan meningkatkan laba, maka pencatatannya dilakukan di sisi kredit saat bertambah.
+
+---
+
+Jika kamu ingin saya bantu buatkan diagram atau contoh jurnal untuk masing-masing jenis akun, tinggal bilang saja!

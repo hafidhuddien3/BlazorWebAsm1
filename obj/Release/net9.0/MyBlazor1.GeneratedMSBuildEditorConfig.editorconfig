@@ -28,8 +28,32 @@ build_property.EnableCodeStyleSeverity =
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/1data/data3/daftarProj/.net/BlazorWebAsm1/Pages/AssetLedger.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXNzZXRMZWRnZXIucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/1data/data3/daftarProj/.net/BlazorWebAsm1/Pages/BalanceSheetScreen.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQmFsYW5jZVNoZWV0U2NyZWVuLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/1data/data3/daftarProj/.net/BlazorWebAsm1/Pages/BebanLedger.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQmViYW5MZWRnZXIucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/1data/data3/daftarProj/.net/BlazorWebAsm1/Pages/Bill.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQmlsbC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/1data/data3/daftarProj/.net/BlazorWebAsm1/Pages/Counter.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ291bnRlci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/1data/data3/daftarProj/.net/BlazorWebAsm1/Pages/ExpenseLedger.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXhwZW5zZUxlZGdlci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/1data/data3/daftarProj/.net/BlazorWebAsm1/Pages/GeneralLedger.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcR2VuZXJhbExlZGdlci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/1data/data3/daftarProj/.net/BlazorWebAsm1/Pages/Home.razor]
@@ -40,8 +64,40 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSG9tZUJ1dHRvbi5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/1data/data3/daftarProj/.net/BlazorWebAsm1/Pages/HutangLedger.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSHV0YW5nTGVkZ2VyLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/1data/data3/daftarProj/.net/BlazorWebAsm1/Pages/Invoice.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW52b2ljZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/1data/data3/daftarProj/.net/BlazorWebAsm1/Pages/KasLedger.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcS2FzTGVkZ2VyLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/1data/data3/daftarProj/.net/BlazorWebAsm1/Pages/LiabilityLedger.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTGlhYmlsaXR5TGVkZ2VyLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/1data/data3/daftarProj/.net/BlazorWebAsm1/Pages/P&L.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUCZMLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/1data/data3/daftarProj/.net/BlazorWebAsm1/Pages/Payment.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGF5bWVudC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/1data/data3/daftarProj/.net/BlazorWebAsm1/Pages/PenjualanLedger.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGVuanVhbGFuTGVkZ2VyLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/1data/data3/daftarProj/.net/BlazorWebAsm1/Pages/PiutangLedger.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGl1dGFuZ0xlZGdlci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/1data/data3/daftarProj/.net/BlazorWebAsm1/Pages/RevenueLedger.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmV2ZW51ZUxlZGdlci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/1data/data3/daftarProj/.net/BlazorWebAsm1/Pages/Weather.razor]

@@ -40,7 +40,7 @@ No Record</div> *@
 
         *@
             <tr>
-                <td>@(item.Customer != null ? ("Customer: "+item.Customer) : ("Vendor: "+item.Vendor))</td>
+                <td>@(item.Customer != null ? ("Customer: "+(item.Customer??"not found")) : ("Vendor: "+(item.Vendor??"not found")))</td>
                 <td>@item.PaymentDate</td>
                 <td>@item.Amount?.ToString("N0")</td>
             </tr>

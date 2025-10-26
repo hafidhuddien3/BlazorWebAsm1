@@ -140,6 +140,34 @@ await LoadDataAsync();
         IMagicQuery<Bills> query = await _MagicDb.Query<Bills>();
         await query.AddAsync(newInvoice);
 
+
+        IEnumerable<JournalLines> journalLinesMulti = new List<JournalLines>
+{
+new JournalLines
+{
+JournalDescription = "Bill-"+VendorId,
+JournalEntryId=null,
+AccountId=5,
+AccountType = AccountType.Expense,
+Debit = TotalAmount,
+Credit = null,
+Description ="Beban / Persediaan",
+},
+new JournalLines
+{
+JournalDescription = "Bill-"+VendorId,
+JournalEntryId=null,
+AccountId=2,
+AccountType = AccountType.Liability,
+Debit = null,
+Credit = TotalAmount,
+Description ="Hutang Usaha",
+}
+};
+
+        IMagicQuery<JournalLines> journalQuery = await _MagicDb.Query<JournalLines>();
+        await journalQuery.UpdateRangeAsync(journalLinesMulti);
+
         VendorId = null;
         TotalAmount = 0;
         await GetAllBill();
@@ -191,7 +219,7 @@ Console.WriteLine(json); // This requires Client class to have a proper ToString
         // For example, you might want to navigate to a payment page or open a payment dialog
         @* await JS.InvokeVoidAsync("alert", $"Initiating payment for Bill ID: {item.Id}"); *@
 
-        bool confirmed = await JS.InvokeAsync<bool>("confirm", $"Are you sure you want to pay Bill ID: {item.Id}?");
+        bool confirmed = await JS.InvokeAsync<bool>("confirm", $"Are you sure you want to pay: {item.VendorId}?");
         if (confirmed)
         {
             // Proceed with payment logic
@@ -212,6 +240,36 @@ Console.WriteLine(json); // This requires Client class to have a proper ToString
             IMagicQuery<Bills> billQuery = await _MagicDb.Query<Bills>();
             item.Status = "Paid";
             await billQuery.UpdateAsync(item);
+
+
+            //journal
+            IEnumerable<JournalLines> journalLinesMulti = new List<JournalLines>
+{
+new JournalLines
+{
+JournalDescription = "Payment-Bill-"+item.VendorId,
+JournalEntryId=null,
+AccountId=2,
+AccountType = AccountType.Liability,
+Debit = item.TotalAmount,
+Credit = null,
+Description ="Hutang Usaha",
+},
+new JournalLines
+{
+JournalDescription = "Payment-Bill-"+item.VendorId,
+JournalEntryId=null,
+AccountId=1,
+AccountType = AccountType.Asset,
+Debit = null,
+Credit = item.TotalAmount,
+Description ="Kas / Bank",
+}
+};
+
+            IMagicQuery<JournalLines> journalQuery = await _MagicDb.Query<JournalLines>();
+            await journalQuery.UpdateRangeAsync(journalLinesMulti);
+
 
             await GetAllBill();
 

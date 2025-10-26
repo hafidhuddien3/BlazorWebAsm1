@@ -91,11 +91,14 @@ public class JournalLines : MagicTableTool<JournalLines>, IMagicTable<IndexedDbC
     // Your model properties
     public int Id { get; set; }
     [MagicIndex]
-    public string? journal_id { get; set; }
-    public string? account_id { get; set; }
-    public decimal? debit { get; set; }
-    public decimal? credit { get; set; }
+    public int? JournalEntryId { get; set; }
+    public int? AccountId { get; set; }
+    public AccountType? AccountType { get; set; }
+    public decimal? Debit { get; set; }
+    public decimal? Credit { get; set; }
     public string? Description { get; set; }
+    public string? JournalDescription { get; set; }
+    public DateTime? Date { get; set; } = DateTime.Now;
 
 }
 
