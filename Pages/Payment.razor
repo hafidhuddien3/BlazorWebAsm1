@@ -6,8 +6,6 @@
 }
 
 <h1>Payment</h1>
-@* <p>Welcome to your new app</p> *@
-
 
 @if (Payments == null || Payments.Count == 0)
 {
@@ -21,7 +19,6 @@ No Record</div> *@
             <th>Customer/Vendor</th>
             <th>PaymentDate</th>
             <th>Amount</th>
-            @* <th>Status</th> *@
         </tr>
     </thead>
     <tbody>
@@ -29,16 +26,6 @@ No Record</div> *@
 
         @foreach (var item in Payments)
         {
-            @*
-        public string? PaymentMethod { get; set; }
-        public DateTime? PaymentDate { get; set; }
-        public DateTime? DueDate { get; set; }
-        public decimal? TotalAmount { get; set; }
-        public string? Status { get; set; }
-        public DateTime? CreatedAt { get; set; }
-        public DateTime? UpdatedAt { get; set; } = DateTime.Now;
-
-        *@
             <tr>
                 <td>@(item.Customer != null ? ("Customer: "+(item.Customer??"not found")) : ("Vendor: "+(item.Vendor??"not found")))</td>
                 <td>@item.PaymentDate</td>
@@ -53,19 +40,11 @@ No Record</div> *@
         No Record</div>
 }
 
-@* <div style="display: flex; gap: 10px;">
-    <InputText @bind-Value="PaymentMethod" placeholder="PaymentMethod" class="form-control" />
-    <InputNumber @bind-Value="TotalAmount" placeholder="Amount" class="form-control" />
-</div> *@
-
 <br />
 <div class="text-center">
-    @* <button class="btn btn-primary me-2" @onclick="AddFlow">Add Payment</button> *@
-    @* <button class="btn btn-primary me-2" @onclick="AddMinusFlow">Minus Cash -</button> *@
 </div>
 <div class="text-center">
     <br>
-    @* <button class="btn btn-success" @onclick="DeleteLastFlow">Delete Last</button> *@
 </div>
 
 
@@ -81,25 +60,13 @@ No Record</div> *@
     private DateTime? DueDate;
     private decimal TotalAmount;
     private string? Status = "";//| Status | VARCHAR(50) | Status Payment (e.g. Pending, Paid, Overdue) |
-
-    @* private string? email; *@
-
     private string? errorMessage;
     List<PaymentViewModel> Payments = new List<PaymentViewModel>();
 
     protected override async Task OnInitializedAsync()
     {
-        // Code to run when component initializes (sync)
-        @* LoadData(); *@
         await GetAllPayment();
     }
-
-    // Or async version
-    @* protected override async Task OnInitializedAsync()
-{
-await LoadDataAsync();
-} *@
-
 
     private async Task AddFlow()
     {
@@ -112,13 +79,6 @@ await LoadDataAsync();
         TotalAmount = Math.Abs(TotalAmount);
 
         errorMessage = null;
-
-        @* public DateTime? PaymentDate { get; set; }     // Tanggal pembayaran dilakukan                      
-    public decimal? Amount { get; set; }  // Jumlah uang yang dibayarkan                       
-    public string? PaymentMethod { get; set; }  // Metode pembayaran (Cash, Bank, Transfer)          
-    public string? InvoiceId { get; set; } // Relasi ke invoice (jika pembayaran dari customer) |
-    public string? BillId { get; set; } // Relasi ke bill (jika pembayaran ke vendor) *@
-
 
         Payments? newPayment = new Payments
         {
@@ -146,8 +106,6 @@ await LoadDataAsync();
         public string? Customer { get; set; }
         public string? Vendor { get; set; }
     }
-
-
 
     private async Task GetAllPayment()
     {
@@ -178,15 +136,14 @@ await LoadDataAsync();
                                                     Vendor = b?.VendorId
                                                 };
 
-        // Optional: assign to a property for display
         Payments = joined.ToList();
 
         // Optional: debug output
         @* foreach (var item in CombinedPayments)
-    {
-        Console.WriteLine($"PaymentId: {item.PaymentId}, Amount: {item.Amount}, Invoice: {item.InvoiceNumber}, Bill: {item.BillReference}");
-    } *@
-    }
+        {
+            Console.WriteLine($"PaymentId: {item.PaymentId}, Amount: {item.Amount}, Invoice: {item.InvoiceNumber}, Bill: {item.BillReference}");
+        } *@
+        }
 
     // Property to hold the result
     private List<object> CombinedPayments = new();
@@ -208,16 +165,5 @@ await LoadDataAsync();
 
         await GetAllPayment(); // Refresh your UI list
     }
-
-
-
-
-    @* = new()
-{
-new Payment { TransactionDate = DateTime.Now.AddDays(-3), Description = "Sale", CashInflow = 1000m, CashOutflow = 0m },
-new Payment { TransactionDate = DateTime.Now.AddDays(-2), Description = "Rent", CashInflow = 0m, CashOutflow = 500m },
-new Payment { TransactionDate = DateTime.Now.AddDays(-1), Description = "Loan", CashInflow = 2000m, CashOutflow = 0m },
-}; *@
-
 
 }

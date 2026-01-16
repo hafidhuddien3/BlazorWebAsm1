@@ -6,8 +6,6 @@
 }
 
 <h1>Piutang Ledger</h1>
-@* <p>Welcome to your new app</p> *@
-
 
 @if (JournalLines == null || JournalLines.Count == 0)
 {
@@ -32,37 +30,15 @@ No Record</div> *@
 
         @foreach (var item in JournalLines)
         {
-            @*
-        public string? VendorId { get; set; }
-        public DateTime? JournalLineDate { get; set; }
-        public DateTime? DueDate { get; set; }
-        public decimal? TotalAmount { get; set; }
-        public string? Status { get; set; }
-        public DateTime? CreatedAt { get; set; }
-        public DateTime? UpdatedAt { get; set; } = DateTime.Now;
-
-        *@
         runningTotal += item?.Debit??0 - item?.Credit??0;
             <tr>
                 <td>@item.Date</td>
                 <td>@item.JournalDescription</td>
                 <td>@item.Description</td>
                 <td>@item.AccountType</td>
-                @* <td>@item.AccountType.ToString("N0")</td> *@
                 <td>@item.Debit?.ToString("N0")</td>
                 <td>@item.Credit?.ToString("N0")</td>
                 <td>@runningTotal.ToString("N0")</td>
-                @* <td>
-                    @if (item.Status != "Paid")
-                    {
-                        <button class="btn btn-primary me-2" @onclick="() => Pay(item)">Pay</button>
-                    }
-                    else
-                    {
-                        <button class="btn btn-secondary me-2" disabled>Paid</button>
-                    }
-
-                </td> *@
             </tr>
         }
     </tbody>
@@ -72,11 +48,6 @@ No Record</div> *@
     <div class="text-center mb-3">
         No Record</div>
 }
-
-@* <div style="display: flex; gap: 10px;">
-    <InputText @bind-Value="VendorId" placeholder="Vendor" class="form-control" />
-    <InputNumber @bind-Value="TotalAmount" placeholder="Total Amount" class="form-control" />
-</div> *@
 
 <br />
 
@@ -91,26 +62,14 @@ No Record</div> *@
     private DateTime? JournalLineDate; // | DATETIME | Tanggal invoice dibuat |
     private DateTime? DueDate;
     private decimal TotalAmount;
-    private string? Status = "";//| Status | VARCHAR(50) | Status invoice (e.g. Pending, Paid, Overdue) |
-
-    @* private string? email; *@
-
+    private string? Status = "";//| Status | VARCHAR(50) 
     private string? errorMessage;
     List<JournalLines> JournalLines = new List<JournalLines>();
 
     protected override async Task OnInitializedAsync()
     {
-        // Code to run when component initializes (sync)
-        @* LoadData(); *@
         await GetAllJournalLine();
     }
-
-    // Or async version
-    @* protected override async Task OnInitializedAsync()
-{
-await LoadDataAsync();
-} *@
-
 
     private async Task GetAllJournalLine()
     {
@@ -118,24 +77,13 @@ await LoadDataAsync();
         IMagicQuery<JournalLines> Query = await _MagicDb.Query<JournalLines>();
         var flowList = await Query.Where(x => x.Description=="Piutang Usaha").ToListAsync();
         JournalLines = flowList;
-        @* Console.WriteLine("personQuery:"); *@
         foreach (var flow in flowList)
         {
             @* Console.WriteLine($"Id: {person.Id}, Name: {person.Name}, Age: {person.Age}"); *@
             @* string json = JsonSerializer.Serialize(person);
-Console.WriteLine(json); // This requires Client class to have a proper ToString() override *@
+            Console.WriteLine(json); // This requires Client class to have a proper ToString() override *@
         }
 
     }
-
-
-
-    @* = new()
-{
-new Invoice { TransactionDate = DateTime.Now.AddDays(-3), Description = "Sale", CashInflow = 1000m, CashOutflow = 0m },
-new Invoice { TransactionDate = DateTime.Now.AddDays(-2), Description = "Rent", CashInflow = 0m, CashOutflow = 500m },
-new Invoice { TransactionDate = DateTime.Now.AddDays(-1), Description = "Loan", CashInflow = 2000m, CashOutflow = 0m },
-}; *@
-
 
 }
