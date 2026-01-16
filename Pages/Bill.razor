@@ -6,8 +6,6 @@
 }
 
 <h1>Bill</h1>
-@* <p>Welcome to your new app</p> *@
-
 
 @if (Bills == null || Bills.Count == 0)
 {
@@ -30,16 +28,6 @@ No Record</div> *@
 
         @foreach (var item in Bills)
         {
-            @*
-        public string? VendorId { get; set; }
-        public DateTime? BillDate { get; set; }
-        public DateTime? DueDate { get; set; }
-        public decimal? TotalAmount { get; set; }
-        public string? Status { get; set; }
-        public DateTime? CreatedAt { get; set; }
-        public DateTime? UpdatedAt { get; set; } = DateTime.Now;
-
-        *@
             <tr>
                 <td>@item.VendorId</td>
                 <td>@item.BillDate</td>
@@ -74,7 +62,6 @@ No Record</div> *@
 <br />
 <div class="text-center">
     <button class="btn btn-primary me-2" @onclick="AddFlow">Add Bill</button>
-    @* <button class="btn btn-primary me-2" @onclick="AddMinusFlow">Minus Cash -</button> *@
 </div>
 <div class="text-center">
     <br>
@@ -94,24 +81,13 @@ No Record</div> *@
     private DateTime? DueDate;
     private decimal TotalAmount;
     private string? Status = "";//| Status | VARCHAR(50) | Status invoice (e.g. Pending, Paid, Overdue) |
-
-    @* private string? email; *@
-
     private string? errorMessage;
     List<Bills> Bills = new List<Bills>();
 
     protected override async Task OnInitializedAsync()
     {
-        // Code to run when component initializes (sync)
-        @* LoadData(); *@
         await GetAllBill();
     }
-
-    // Or async version
-    @* protected override async Task OnInitializedAsync()
-{
-await LoadDataAsync();
-} *@
 
 
     private async Task AddFlow()
@@ -181,12 +157,11 @@ Description ="Hutang Usaha",
         IMagicQuery<Bills> Query = await _MagicDb.Query<Bills>();
         var flowList = await Query.ToListAsync();
         Bills = flowList;
-        @* Console.WriteLine("personQuery:"); *@
         foreach (var flow in flowList)
         {
             @* Console.WriteLine($"Id: {person.Id}, Name: {person.Name}, Age: {person.Age}"); *@
             @* string json = JsonSerializer.Serialize(person);
-Console.WriteLine(json); // This requires Client class to have a proper ToString() override *@
+            Console.WriteLine(json); // This requires Client class to have a proper ToString() override *@
         }
 
     }
@@ -215,15 +190,10 @@ Console.WriteLine(json); // This requires Client class to have a proper ToString
 
     private async Task Pay(Bills item)
     {
-        @* Logic to handle payment for the selected bill *@
-        // For example, you might want to navigate to a payment page or open a payment dialog
-        @* await JS.InvokeVoidAsync("alert", $"Initiating payment for Bill ID: {item.Id}"); *@
 
         bool confirmed = await JS.InvokeAsync<bool>("confirm", $"Are you sure you want to pay: {item.VendorId}?");
         if (confirmed)
         {
-            // Proceed with payment logic
-            @* await JS.InvokeVoidAsync("alert", $"Initiating payment for Bill ID: {item.Id}"); *@
             // make payment record
             Payments? newPayment = new Payments
             {
@@ -281,14 +251,5 @@ Description ="Kas / Bank",
         }
 
     }
-
-
-    @* = new()
-{
-new Invoice { TransactionDate = DateTime.Now.AddDays(-3), Description = "Sale", CashInflow = 1000m, CashOutflow = 0m },
-new Invoice { TransactionDate = DateTime.Now.AddDays(-2), Description = "Rent", CashInflow = 0m, CashOutflow = 500m },
-new Invoice { TransactionDate = DateTime.Now.AddDays(-1), Description = "Loan", CashInflow = 2000m, CashOutflow = 0m },
-}; *@
-
 
 }

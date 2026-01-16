@@ -1,14 +1,12 @@
 ﻿@inject IMagicIndexedDb _MagicDb
 @inject IJSRuntime JS
-@* @page "/invoice" *@
-@page "/"
+@page "/invoice"
+@* @page "/" *@
 @{
     decimal runningTotal = 0;
 }
 
 <h1>Invoice</h1>
-@* <p>Welcome to your new app</p> *@
-
 
 @if (Invoices == null || Invoices.Count == 0)
 {
@@ -31,16 +29,6 @@ No Record</div> *@
 
         @foreach (var item in Invoices)
         {
-            @*
-        public string? CustomerId { get; set; }
-        public DateTime? InvoiceDate { get; set; }
-        public DateTime? DueDate { get; set; }
-        public decimal? TotalAmount { get; set; }
-        public string? Status { get; set; }
-        public DateTime? CreatedAt { get; set; }
-        public DateTime? UpdatedAt { get; set; } = DateTime.Now;
-
-        *@
             <tr>
                 <td>@item.CustomerId</td>
                 <td>@item.InvoiceDate</td>
@@ -75,7 +63,6 @@ No Record</div> *@
 <br />
 <div class="text-center">
     <button class="btn btn-primary me-2" @onclick="AddFlow">Add Invoice</button>
-    @* <button class="btn btn-primary me-2" @onclick="AddMinusFlow">Minus Cash -</button> *@
 </div>
 <div class="text-center">
     <br>
@@ -95,38 +82,24 @@ No Record</div> *@
     private DateTime? DueDate;
     private decimal TotalAmount;
     private string? Status = "";//| Status | VARCHAR(50) | Status invoice (e.g. Pending, Paid, Overdue) |
-
-    @* private string? email; *@
-
     private string? errorMessage;
     List<Invoices> Invoices = new List<Invoices>();
 
     protected override async Task OnInitializedAsync()
     {
-        // Code to run when component initializes (sync)
-        @* LoadData(); *@
         await GetAllInvoice();
     }
-
-    // Or async version
-    @* protected override async Task OnInitializedAsync()
-{
-await LoadDataAsync();
-} *@
-
 
     private async Task AddFlow()
     {
         if (string.IsNullOrWhiteSpace(CustomerId) || TotalAmount == 0)
         {
-            @* await JS.InvokeVoidAsync("alert", "Please complete form"); *@
             errorMessage = "⚠️ Please complete the form.";
             return;
         }
         TotalAmount = Math.Abs(TotalAmount);
 
         errorMessage = null;
-
 
         var newInvoice = new Invoices
         {
@@ -140,14 +113,6 @@ await LoadDataAsync();
 
         IMagicQuery<Invoices> query = await _MagicDb.Query<Invoices>();
         await query.AddAsync(newInvoice);
-
-        // add journal
-        @* JournalEntries journalEntry1 = new JournalEntries
-        {
-            Date = DateTime.Now,
-            Description = "Invoice-"+CustomerId,
-            CreatedBy = "system",
-        }; *@
 
         IEnumerable<JournalLines> journalLinesMulti = new List<JournalLines>
 {
@@ -194,7 +159,7 @@ Description ="Penjualan",
         {
             @* Console.WriteLine($"Id: {person.Id}, Name: {person.Name}, Age: {person.Age}"); *@
             @* string json = JsonSerializer.Serialize(person);
-Console.WriteLine(json); // This requires Client class to have a proper ToString() override *@
+            Console.WriteLine(json); // This requires Client class to have a proper ToString() override *@
         }
 
     }
@@ -224,15 +189,9 @@ Console.WriteLine(json); // This requires Client class to have a proper ToString
 
     private async Task Pay(Invoices item)
     {
-        @* Logic to handle payment for the selected bill *@
-        // For example, you might want to navigate to a payment page or open a payment dialog
-        @* await JS.InvokeVoidAsync("alert", $"Initiating payment for Bill ID: {item.Id}"); *@
-
         bool confirmed = await JS.InvokeAsync<bool>("confirm", $"Are you sure you want to pay: {item.CustomerId}?");
         if (confirmed)
         {
-            // Proceed with payment logic
-            @* await JS.InvokeVoidAsync("alert", $"Initiating payment for Bill ID: {item.Id}"); *@
             // make payment record
             Payments? newPayment = new Payments
             {
@@ -250,8 +209,8 @@ Console.WriteLine(json); // This requires Client class to have a proper ToString
             item.Status = "Paid";
             await billQuery.UpdateAsync(item);
 
-//journal
-        IEnumerable<JournalLines> journalLinesMulti = new List<JournalLines>
+            //journal
+            IEnumerable<JournalLines> journalLinesMulti = new List<JournalLines>
 {
 new JournalLines
 {
@@ -275,8 +234,8 @@ Description ="Piutang Usaha",
 }
 };
 
-        IMagicQuery<JournalLines> journalQuery = await _MagicDb.Query<JournalLines>();
-        await journalQuery.UpdateRangeAsync(journalLinesMulti);
+            IMagicQuery<JournalLines> journalQuery = await _MagicDb.Query<JournalLines>();
+            await journalQuery.UpdateRangeAsync(journalLinesMulti);
 
 
             await GetAllInvoice();
@@ -289,15 +248,5 @@ Description ="Piutang Usaha",
         }
 
     }
-
-
-
-    @* = new()
-{
-new Invoice { TransactionDate = DateTime.Now.AddDays(-3), Description = "Sale", CashInflow = 1000m, CashOutflow = 0m },
-new Invoice { TransactionDate = DateTime.Now.AddDays(-2), Description = "Rent", CashInflow = 0m, CashOutflow = 500m },
-new Invoice { TransactionDate = DateTime.Now.AddDays(-1), Description = "Loan", CashInflow = 2000m, CashOutflow = 0m },
-}; *@
-
 
 }

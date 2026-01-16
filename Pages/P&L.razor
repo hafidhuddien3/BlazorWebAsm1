@@ -7,8 +7,6 @@
 
 <h1>Profit and Lost</h1>
 <h5>(Revenue - Expense)</h5>
-@* <p>Welcome to your new app</p> *@
-
 
 @if (pnl == null || pnl.Count == 0)
 {
@@ -43,11 +41,6 @@ No Record</div> *@
         No Record</div>
 }
 
-@* <div style="display: flex; gap: 10px;">
-    <InputText @bind-Value="VendorId" placeholder="Vendor" class="form-control" />
-    <InputNumber @bind-Value="TotalAmount" placeholder="Total Amount" class="form-control" />
-</div> *@
-
 <br />
 
 @if (!string.IsNullOrEmpty(errorMessage))
@@ -63,25 +56,14 @@ No Record</div> *@
     private decimal TotalAmount;
     private List<ProfitAndLoss> pnl = new List<ProfitAndLoss>();
     private string? Status = "";//| Status | VARCHAR(50) | Status invoice (e.g. Pending, Paid, Overdue) |
-
-    @* private string? email; *@
-
     private string? errorMessage;
     List<JournalLines> JournalLines = new List<JournalLines>();
 
     protected override async Task OnInitializedAsync()
     {
         // Code to run when component initializes (sync)
-        @* LoadData(); *@
         await GetAllJournalLine();
     }
-
-    // Or async version
-    @* protected override async Task OnInitializedAsync()
-{
-await LoadDataAsync();
-} *@
-
 
     private async Task GetAllJournalLine()
     {
@@ -114,12 +96,11 @@ netProfitAndLoss= profitAndLoss
 
 };
 
-        @* Console.WriteLine("personQuery:"); *@
         foreach (var flow in revenueList)
         {
             @* Console.WriteLine($"Id: {person.Id}, Name: {person.Name}, Age: {person.Age}"); *@
             @* string json = JsonSerializer.Serialize(person);
-Console.WriteLine(json); // This requires Client class to have a proper ToString() override *@
+            Console.WriteLine(json); // This requires Client class to have a proper ToString() override *@
         }
 
     }
@@ -131,14 +112,5 @@ Console.WriteLine(json); // This requires Client class to have a proper ToString
         public decimal totalExpense { get; set; }
         public decimal netProfitAndLoss { get; set; }
     }
-
-
-    @* = new()
-{
-new Invoice { TransactionDate = DateTime.Now.AddDays(-3), Description = "Sale", CashInflow = 1000m, CashOutflow = 0m },
-new Invoice { TransactionDate = DateTime.Now.AddDays(-2), Description = "Rent", CashInflow = 0m, CashOutflow = 500m },
-new Invoice { TransactionDate = DateTime.Now.AddDays(-1), Description = "Loan", CashInflow = 2000m, CashOutflow = 0m },
-}; *@
-
 
 }

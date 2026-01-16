@@ -7,8 +7,6 @@
 
 <h1>Balance Sheet</h1>
 <h5>(Asset = Liability + Equity)</h5>
-@* <p>Welcome to your new app</p> *@
-
 
 @if (pnl == null || pnl.Count == 0)
 {
@@ -32,7 +30,6 @@ No Record</div> *@
             <tr>
                 <td>@item?.asset.ToString("N0")</td>
                 <td>@(item?.liability.ToString("N0")+" + "+item?.equity.ToString("N0")+" = "+(item?.liability+item?.equity)?.ToString("N0"))</td>
-                @* <td>@item?.netProfitAndLoss.ToString("N0")</td> *@
             </tr>
         }
     </tbody>
@@ -42,11 +39,6 @@ No Record</div> *@
     <div class="text-center mb-3">
         No Record</div>
 }
-
-@* <div style="display: flex; gap: 10px;">
-    <InputText @bind-Value="VendorId" placeholder="Vendor" class="form-control" />
-    <InputNumber @bind-Value="TotalAmount" placeholder="Total Amount" class="form-control" />
-</div> *@
 
 <br />
 
@@ -70,7 +62,6 @@ No Record</div> *@
     protected override async Task OnInitializedAsync()
     {
         // Code to run when component initializes (sync)
-        @* LoadData(); *@
         await GetAllJournalLine();
     }
 
@@ -98,11 +89,6 @@ await LoadDataAsync();
 
         var totalEquitySum = totalAsset - totalLiability;
 
-        @* var profitAndLoss = totalRevenue - totalExpense; *@
-        @* Console.WriteLine("totalRevenue: " + totalRevenue);
-        Console.WriteLine("totalExpense: " + totalExpense);
-        Console.WriteLine("Proofit and Loss: " + profitAndLoss); *@
-
         pnl = new List<BalanceSheet>
 {
 new BalanceSheet
@@ -122,14 +108,5 @@ equity= totalEquitySum+totalEquity
         public decimal liability { get; set; }
         public decimal equity { get; set; }
     }
-
-
-    @* = new()
-{
-new Invoice { TransactionDate = DateTime.Now.AddDays(-3), Description = "Sale", CashInflow = 1000m, CashOutflow = 0m },
-new Invoice { TransactionDate = DateTime.Now.AddDays(-2), Description = "Rent", CashInflow = 0m, CashOutflow = 500m },
-new Invoice { TransactionDate = DateTime.Now.AddDays(-1), Description = "Loan", CashInflow = 2000m, CashOutflow = 0m },
-}; *@
-
 
 }

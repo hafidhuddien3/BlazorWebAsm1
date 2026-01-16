@@ -8,38 +8,21 @@
 @code {
     private async Task AddPerson()
     {
-        @* var person = new Client
-{
-Id = Guid.NewGuid().ToString(),
-Name = "John Doe",
-Age = 30
-}; *@
-
         IMagicQuery<Client> personQuery = await _MagicDb.Query<Client>();
-        @* await _MagicDb.Query<Person>().ToListAsync(); *@
         await personQuery.AddAsync(new Client { Name = "John Doe", Age = 30 });
         Console.WriteLine("finish add");
-        @* Console.WriteLine("personQuery: "+ personQuery.ToListAsync()); *@
     }
 
     private async Task GetPerson()
     {
-        @* var person = new Client
-{
-Id = Guid.NewGuid().ToString(),
-Name = "John Doe",
-Age = 30
-}; *@
-
         IMagicQuery<Client> personQuery = await _MagicDb.Query<Client>();
         var personList = await personQuery.ToListAsync();
 
-        @* Console.WriteLine("personQuery:"); *@
         foreach (var person in personList)
         {
             Console.WriteLine($"Id: {person.Id}, Name: {person.Name}, Age: {person.Age}");
             @* string json = JsonSerializer.Serialize(person);
-Console.WriteLine(json); // This requires Client class to have a proper ToString() override *@
+            Console.WriteLine(json); // This requires Client class to have a proper ToString() override *@
         }
 
     }
