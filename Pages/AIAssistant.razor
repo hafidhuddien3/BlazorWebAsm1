@@ -1,0 +1,134 @@
+﻿@page "/ai-assistant"
+@inject HttpClient Http
+@inject IJSRuntime JS
+@inject IMagicIndexedDb _MagicDb
+
+<PageTitle>AI Assistant</PageTitle>
+
+<iframe title="Embedded Website" style="
+        width: 100%;
+        height: 85vh;
+        border: none;
+        display: block;
+    " allowfullscreen id="myFrame" src="@IframeUrl" @onload="IframeLoaded">
+</iframe>
+
+@code {
+    private string IframeUrl = "";
+    private string IframeOrigin = "";
+
+    protected override void OnInitialized()
+    {
+        var isLocalHost = false;
+
+        if (isLocalHost)
+        {
+            IframeUrl = "http://localhost:5173?dbName=sqlite";
+            IframeOrigin = "http://localhost:5173";
+        }
+        else
+        {
+            IframeUrl = "https://fast-api-1-eight.vercel.app?dbName=sqlite";
+            IframeOrigin = "https://fast-api-1-eight.vercel.app";
+        }
+    }
+
+    private async Task IframeLoaded()
+    {
+        @* get all data *@
+        @* var accounts = await (await _MagicDb.Query<Account>())
+        .ToListAsync();
+        var journalEntries = await (await _MagicDb.Query<JournalEntries>())
+        .ToListAsync(); *@
+        var journalLines = await (await _MagicDb.Query<JournalLines>())
+        .ToListAsync();
+        var invoices = await (await _MagicDb.Query<Invoices>())
+        .ToListAsync();
+        var bills = await (await _MagicDb.Query<Bills>())
+        .ToListAsync();
+        var payments = await (await _MagicDb.Query<Payments>())
+        .ToListAsync();
+        string EnumAccountTypeCSharp = "Asset,Liability,Equity,Revenue,Expense";
+
+        @* balance sheet *@
+           IMagicQuery<JournalLines> Query = await _MagicDb.Query<JournalLines>();
+        var allItems = await Query.ToListAsync();
+        var assetList = allItems.Where(x => x.AccountType == AccountType.Asset).ToList();
+        var totalAsset = assetList.Sum(x => x.Debit ?? 0 - x.Credit ?? 0);
+        var liabilityList = allItems.Where(x => x.AccountType == AccountType.Liability).ToList();
+        var totalLiability = liabilityList.Sum(x => x.Credit ?? 0 - x.Debit ?? 0);
+        var equityList = allItems.Where(x => x.AccountType == AccountType.Equity).ToList();
+        var totalEquity = equityList.Sum(x => x.Credit ?? 0 - x.Debit ?? 0);
+        var totalEquitySum = totalAsset - totalLiability;
+
+        BalanceSheet balanceSheet = new BalanceSheet
+            {
+            asset=totalAsset,
+            liability=totalLiability,
+            equity= totalEquitySum+totalEquity
+            };
+        string balanceSheetFormula = "Asset = Liability + Equity";
+
+        @* Profit and Lost *@
+        string profitAndLostFormula = "Revenue - Expense = Profit";
+
+        IMagicQuery<JournalLines> JournalLineQuery = await _MagicDb.Query<JournalLines>();
+        var JournalLineAllItems = await JournalLineQuery.ToListAsync();
+        var revenueList = JournalLineAllItems.Where(x => x.AccountType == AccountType.Revenue).ToList();
+        var totalRevenue = revenueList.Sum(x => x.Credit ?? 0 - x.Debit ?? 0);
+        var expenseList = JournalLineAllItems.Where(x => x.AccountType == AccountType.Expense).ToList();
+        @* JournalLines = expenseList; *@
+        var totalExpense = expenseList.Sum(x => x.Debit ?? 0 - x.Credit ?? 0);
+        var profitAndLossNumber = totalRevenue - totalExpense;
+        ProfitAndLoss profitAndLoss = new ProfitAndLoss
+        {
+        totalRevenue=totalRevenue,
+        totalExpense=totalExpense,
+        netProfitAndLoss= profitAndLossNumber
+        };
+
+
+
+        var message = new
+        {
+            type = "SAVE_DATA",
+            data = new
+            {
+                @* accounts, *@
+                @* journalEntries, *@
+                journalLines,
+                invoices,
+                bills,
+                payments,
+                EnumAccountTypeCSharp,
+                balanceSheet,
+                balanceSheetFormula,
+                profitAndLoss,
+                profitAndLostFormula
+            }
+        };
+        await Task.Delay(1000);
+        @* Console.WriteLine("Sending message to iframe: " + System.Text.Json.JsonSerializer.Serialize(message)); *@
+        await JS.InvokeVoidAsync(
+        "iframeInterop.sendMessage",
+        "myFrame",
+        IframeOrigin,
+        message
+        );
+    }
+
+        class BalanceSheet()
+    {
+        public decimal asset { get; set; }
+        public decimal liability { get; set; }
+        public decimal equity { get; set; }
+    }
+
+        class ProfitAndLoss()
+    {
+        public decimal totalRevenue { get; set; }
+        public decimal totalExpense { get; set; }
+        public decimal netProfitAndLoss { get; set; }
+    }
+
+}

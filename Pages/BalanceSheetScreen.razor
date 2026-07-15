@@ -8,7 +8,7 @@
 <h1>Balance Sheet</h1>
 <h5>(Asset = Liability + Equity)</h5>
 
-@if (pnl == null || pnl.Count == 0)
+@if (bs == null || bs.Count == 0)
 {
     @* <div class="text-center" style="background-color: red; color: white;">
 No Record</div> *@
@@ -25,7 +25,7 @@ No Record</div> *@
     <tbody>
 
 
-        @foreach (var item in pnl ?? [])
+        @foreach (var item in bs ?? [])
         {
             <tr>
                 <td>@item?.asset.ToString("N0")</td>
@@ -34,7 +34,7 @@ No Record</div> *@
         }
     </tbody>
 </table>
-@if (pnl == null || pnl.Count == 0)
+@if (bs == null || bs.Count == 0)
 {
     <div class="text-center mb-3">
         No Record</div>
@@ -53,7 +53,7 @@ No Record</div> *@
     private DateTime? JournalLineDate; // | DATETIME | Tanggal invoice dibuat |
     private DateTime? DueDate;
     private decimal TotalAmount;
-    private List<BalanceSheet> pnl = new List<BalanceSheet>();
+    private List<BalanceSheet> bs = new List<BalanceSheet>();
     private string? Status = "";//| Status | VARCHAR(50) | Status invoice (e.g. Pending, Paid, Overdue) |
 
     @* private string? email; *@
@@ -89,7 +89,7 @@ await LoadDataAsync();
 
         var totalEquitySum = totalAsset - totalLiability;
 
-        pnl = new List<BalanceSheet>
+        bs = new List<BalanceSheet>
 {
 new BalanceSheet
 {
