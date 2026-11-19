@@ -2224,10 +2224,10 @@ C:\1data\data3\daftarProj\.net\BlazorWebAsm1\obj\Debug\net9.0\MyBlazor1.pdb
 C:\1data\data3\daftarProj\.net\BlazorWebAsm1\obj\Debug\net9.0\ref\MyBlazor1.dll
 C:\1data\data3\daftarProj\.net\BlazorWebAsm1\obj\Debug\net9.0\compressed\7scjydo6gh-wcz8ee9ym0.gz
 C:\1data\data3\daftarProj\.net\BlazorWebAsm1\obj\Debug\net9.0\compressed\ppuw1zcf9m-079fqrfen1.gz
-C:\1data\data3\daftarProj\.net\BlazorWebAsm1\bin\Debug\net9.0\wwwroot\_framework\MyBlazor1.cyui8rzbou.wasm
-C:\1data\data3\daftarProj\.net\BlazorWebAsm1\bin\Debug\net9.0\wwwroot\_framework\MyBlazor1.f18y0pvt1l.pdb
-C:\1data\data3\daftarProj\.net\BlazorWebAsm1\bin\Debug\net9.0\wwwroot\_framework\MyBlazor1.cyui8rzbou.wasm.gz
-C:\1data\data3\daftarProj\.net\BlazorWebAsm1\bin\Debug\net9.0\wwwroot\_framework\MyBlazor1.f18y0pvt1l.pdb.gz
-C:\1data\data3\daftarProj\.net\BlazorWebAsm1\obj\Debug\net9.0\compressed\7daeqraibi-cyui8rzbou.gz
-C:\1data\data3\daftarProj\.net\BlazorWebAsm1\obj\Debug\net9.0\compressed\mzhimchgaf-f18y0pvt1l.gz
-C:\1data\data3\daftarProj\.net\BlazorWebAsm1\obj\Debug\net9.0\compressed\em032y3m17-93bx9ivmjc.gz
+C:\1data\data3\daftarProj\.net\BlazorWebAsm1\bin\Debug\net9.0\wwwroot\_framework\MyBlazor1.qto8m9xhxp.wasm
+C:\1data\data3\daftarProj\.net\BlazorWebAsm1\bin\Debug\net9.0\wwwroot\_framework\MyBlazor1.of6qbgsy2p.pdb
+C:\1data\data3\daftarProj\.net\BlazorWebAsm1\bin\Debug\net9.0\wwwroot\_framework\MyBlazor1.qto8m9xhxp.wasm.gz
+C:\1data\data3\daftarProj\.net\BlazorWebAsm1\bin\Debug\net9.0\wwwroot\_framework\MyBlazor1.of6qbgsy2p.pdb.gz
+C:\1data\data3\daftarProj\.net\BlazorWebAsm1\obj\Debug\net9.0\compressed\7daeqraibi-qto8m9xhxp.gz
+C:\1data\data3\daftarProj\.net\BlazorWebAsm1\obj\Debug\net9.0\compressed\mzhimchgaf-of6qbgsy2p.gz
+C:\1data\data3\daftarProj\.net\BlazorWebAsm1\obj\Debug\net9.0\compressed\em032y3m17-attqxghm6j.gz
